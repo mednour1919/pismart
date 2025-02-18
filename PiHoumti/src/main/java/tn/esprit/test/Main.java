@@ -3,7 +3,7 @@ package tn.esprit.test;
 import tn.esprit.models.Camion;
 import tn.esprit.models.zone_de_collecte;
 import tn.esprit.services.ServiceCamion;
-import tn.esprit.services.ServiceZoneDeCollecte;
+import tn.esprit.services.Service_zone_de_collecte;
 
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
         System.out.println(sp.getAll());
 
         // Tester ServiceZoneDeCollecte
-        ServiceZoneDeCollecte sz = new ServiceZoneDeCollecte();
+        Service_zone_de_collecte sz = new Service_zone_de_collecte();
         // Créer un objet ZoneDeCollecte avec des valeurs valides
         sz.add(new zone_de_collecte("Zone Nord", 9500, "03:30:00"));
 

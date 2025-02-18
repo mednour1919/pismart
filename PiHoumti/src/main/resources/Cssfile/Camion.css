@@ -1,0 +1,43 @@
+.root{
+   -fx-background-color: #EAEEF4;
+}
+
+
+.side_pann{
+    -fx-background-color: #353A56;
+    /*-fx-border-color:#27707bb;*/
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+}
+
+.inner_pane{
+    -fx-background-color: #445459;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #445459;
+}
+
+.btnCamion{
+    -fx-background-color: #303551;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #303551;
+}
+
+.btnZone{
+    -fx-background-color: #303551;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #303551;
+}
+
+
+

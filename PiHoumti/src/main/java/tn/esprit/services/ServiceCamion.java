@@ -8,8 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class ServiceCamion implements IService<Camion> {
     private Connection cnx;
 
@@ -25,7 +23,11 @@ public class ServiceCamion implements IService<Camion> {
             pstm.setString(1, camion.getType());
             pstm.setString(2, camion.getStatut());
             pstm.setInt(3, camion.getCapacity());
-            pstm.setInt(4, camion.getId_zone());
+            if (camion.getId_zone() != null) {
+                pstm.setInt(4, camion.getId_zone());
+            } else {
+                pstm.setNull(4, Types.INTEGER);
+            }
             pstm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -66,7 +68,11 @@ public class ServiceCamion implements IService<Camion> {
             pstm.setString(1, camion.getType());
             pstm.setString(2, camion.getStatut());
             pstm.setInt(3, camion.getCapacity());
-            pstm.setInt(4, camion.getId_zone());
+            if (camion.getId_zone() != null) {
+                pstm.setInt(4, camion.getId_zone());
+            } else {
+                pstm.setNull(4, Types.INTEGER);
+            }
             pstm.setInt(5, camion.getId());
             pstm.executeUpdate();
         } catch (SQLException e) {

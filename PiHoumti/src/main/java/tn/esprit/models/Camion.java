@@ -4,14 +4,14 @@ public class Camion {
 
     private int id;
     private int capacity;
-    private int id_zone; // Changer idZone en id_zone
+    private Integer id_zone; // Utilisez Integer pour permettre les valeurs nulles
     private String type;
     private String statut;
 
     public Camion() {
     }
 
-    public Camion(String type, String statut, int capacity, int id_zone) {
+    public Camion(String type, String statut, int capacity, Integer id_zone) {
         this.type = type;
         this.statut = statut;
         this.capacity = capacity;
@@ -32,11 +32,11 @@ public class Camion {
         this.id = id;
     }
 
-    public int getId_zone() {
+    public Integer getId_zone() {
         return id_zone;
     }
 
-    public void setId_zone(int id_zone) {
+    public void setId_zone(Integer id_zone) {
         this.id_zone = id_zone;
     }
 
