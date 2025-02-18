@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.signalementController">
-    <children>
-        <!-- En-tête avec l'image et le titre -->
-        <AnchorPane prefHeight="52.0" prefWidth="520.0" style="-fx-background-color: #D3D3D3;" AnchorPane.bottomAnchor="348.0">
-            <children>
-                <!-- Image -->
-                <ImageView fitHeight="42.0" fitWidth="200.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/reclamer.png" />
-                    </image>
-                </ImageView>
+<VBox spacing="10" stylesheets="@Cssfile/Main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.MainController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
 
-                <!-- Titre -->
-                <Label layoutX="128.0" layoutY="12.0" text="Ajouter un Signalement" textFill="#6b625b17">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
+    <TabPane stylesheets="@Cssfile/Main.css" VBox.vgrow="ALWAYS">
+        <Tab closable="false" text="Signalement">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <ListView fx:id="signalementListView" prefHeight="300" prefWidth="400" />
 
-        <!-- Formulaire de signalement -->
-        <VBox layoutX="20.0" layoutY="70.0" spacing="15.0">
-            <!-- Champ Type de Signalement -->
-            <TextField fx:id="typeSignalementField" prefWidth="460.0" promptText="Type de Signalement" />
+                    <VBox spacing="10">
+                        <Label text="Signalement Details" />
+                        <TextField fx:id="typeSignalementField" promptText="Type Signalement" />
+                        <TextField fx:id="descriptionField" promptText="Description" />
+                        <DatePicker fx:id="dateSignalementPicker" promptText="Date Signalement" />
+                        <TextField fx:id="statutSignalementField" promptText="Statut" />
 
-            <!-- Champ Description -->
-            <TextArea fx:id="descriptionArea" prefHeight="100.0" prefWidth="460.0" promptText="Description du signalement" />
+                        <HBox spacing="10">
+                            <Button onAction="#handleAddSignalement" text="Add" />
+                            <Button onAction="#handleUpdateSignalement" text="Update" />
+                            <Button onAction="#handleDeleteSignalement" text="Delete" />
+                            <Button onAction="#handleClearSignalement" text="Clear" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
 
-            <!-- Champ Date de Signalement -->
-            <TextField fx:id="dateSignalementField" prefWidth="460.0" promptText="Date de Signalement (jj/mm/aaaa)" />
+        <Tab closable="false" text="Reponse">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <ListView fx:id="reponseListView" prefHeight="300" prefWidth="400" stylesheets="@Cssfile/Main.css" />
 
-            <!-- Champ Statut (lecture seule) -->
-            <Label fx:id="statutLabel" text="Statut : En attente" />
+                    <VBox spacing="10">
+                        <Label text="Reponse Details" />
+                        <TextField fx:id="idSignalementField" promptText="ID Signalement" />
+                        <TextField fx:id="reponseField" promptText="Reponse" />
+                        <DatePicker fx:id="dateReponsePicker" promptText="Date Reponse" />
+                        <TextField fx:id="statutReponseField" promptText="Statut" />
 
-            <!-- Bouton Ajouter -->
-            <Button fx:id="ajouterButton" onAction="#handleAjouterSignalement" text="Ajouter le Signalement" />
-
-            <!-- Confirmation -->
-            <Label fx:id="confirmationLabel" textFill="green" />
-        </VBox>
-    </children>
-</AnchorPane>
+                        <HBox spacing="10">
+                            <Button onAction="#handleAddReponse" stylesheets="@Cssfile/Main.css" text="Add" />
+                            <Button onAction="#handleUpdateReponse" text="Update" />
+                            <Button onAction="#handleDeleteReponse" text="Delete" />
+                            <Button onAction="#handleClearReponse" text="Clear" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>
