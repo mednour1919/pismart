@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.MainController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <Tab text="Stations" closable="false">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <ListView fx:id="stationListView" prefWidth="400" prefHeight="300"/>
+
+                    <VBox spacing="10">
+                        <Label text="Station Details"/>
+                        <TextField fx:id="stationNameField" promptText="Station Name"/>
+                        <TextField fx:id="capacityField" promptText="Capacity"/>
+                        <TextField fx:id="zoneField" promptText="Zone"/>
+                        <TextField fx:id="statusField" promptText="Status"/>
+
+                        <HBox spacing="10">
+                            <Button text="Add" onAction="#handleAddStation"/>
+                            <Button text="Update" onAction="#handleUpdateStation"/>
+                            <Button text="Delete" onAction="#handleDeleteStation"/>
+                            <Button text="Clear" onAction="#handleClearStation"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <Tab text="Reservations" closable="false">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <ListView fx:id="reservationListView" prefWidth="400" prefHeight="300"/>
+
+                    <VBox spacing="10">
+                        <Label text="Reservation Details"/>
+                        <TextField fx:id="placeField" promptText="Place Number"/>
+                        <DatePicker fx:id="datePicker" promptText="Date"/>
+                        <TextField fx:id="timeField" promptText="Time"/>
+                        <TextField fx:id="brandField" promptText="Car Brand"/>
+
+                        <HBox spacing="10">
+                            <Button text="Add" onAction="#handleAddReservation"/>
+                            <Button text="Update" onAction="#handleUpdateReservation"/>
+                            <Button text="Delete" onAction="#handleDeleteReservation"/>
+                            <Button text="Clear" onAction="#handleClearReservation"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>
