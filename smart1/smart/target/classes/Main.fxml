@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.MainController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <!-- Tab for Project -->
+        <Tab closable="false" text="Projet">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <!-- ListView for Projects -->
+                    <ListView fx:id="projetListView" prefHeight="300" prefWidth="400" />
+
+                    <!-- Project Details -->
+                    <VBox spacing="10">
+                        <Label text="Projet Details" />
+                        <TextField fx:id="projetNomField" promptText="Nom Projet" />
+                        <TextField fx:id="projetDescriptionField" promptText="Description" />
+                        <DatePicker fx:id="projetDateDebutPicker" promptText="Date Debut Projet" />
+                        <DatePicker fx:id="projetDateFinPicker" promptText="Date Fin Projet" />
+                        <TextField fx:id="projetBudgetField" promptText="Budget" />
+                        <TextField fx:id="projetDepenseField" promptText="Depense" />
+                        <TextField fx:id="projetStatutField" promptText="Statut" />
+                        <TextField fx:id="projetSoldeField" promptText="Solde" editable="false" />
+                        <ComboBox fx:id="fournisseurComboBox" promptText="Sélectionner un fournisseur" />
+                        <!-- Buttons for Project -->
+                        <HBox spacing="10">
+                            <Button onAction="#handleAddProjet" text="Add" />
+                            <Button onAction="#handleUpdateProjet" text="Update" />
+                            <Button onAction="#handleDeleteProjet" text="Delete" />
+                            <Button onAction="#handleClearProjet" text="Clear" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <!-- Tab for Supplier -->
+        <Tab closable="false" text="Fournisseur">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <!-- ListView for Suppliers -->
+                    <ListView fx:id="fournisseurListView" prefHeight="300" prefWidth="400" />
+
+                    <!-- Supplier Details -->
+                    <VBox spacing="10">
+                        <Label text="Fournisseur Details" />
+                        <TextField fx:id="nomFournisseurField" promptText="Nom Fournisseur" />
+                        <TextField fx:id="adresseFournisseurField" promptText="Adresse" />
+
+                        <!-- Buttons for Supplier -->
+                        <HBox spacing="10">
+                            <Button onAction="#handleAddFournisseur" text="Add" />
+                            <Button onAction="#handleUpdateFournisseur" text="Update" />
+                            <Button onAction="#handleDeleteFournisseur" text="Delete" />
+                            <Button onAction="#handleClearFournisseur" text="Clear" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>
