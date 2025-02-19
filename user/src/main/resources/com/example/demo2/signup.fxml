@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.controller.SignupController">
+    <children>
+        <VBox alignment="CENTER" spacing="15" layoutX="80" layoutY="50" prefWidth="300">
+            <children>
+                <Label text="Sign Up" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+                <TextField fx:id="usernameField" promptText="Username"
+                           style="-fx-font-size: 14px; -fx-pref-height: 40px; -fx-background-radius: 10px;"/>
+
+                <TextField fx:id="emailField" promptText="Email"
+                           style="-fx-font-size: 14px; -fx-pref-height: 40px; -fx-background-radius: 10px;"/>
+
+                <PasswordField fx:id="passwordField" promptText="Password"
+                               style="-fx-font-size: 14px; -fx-pref-height: 40px; -fx-background-radius: 10px;"/>
+
+                <Button text="Sign Up" onAction="#handleSignup"
+                        style="-fx-font-size: 16px; -fx-background-color: #007BFF; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-background-radius: 10px;"/>
+                <Button text="Go TO login" onAction="#switchToLogin"
+                        style="-fx-font-size: 16px; -fx-background-color: #007BFF; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-background-radius: 10px;"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

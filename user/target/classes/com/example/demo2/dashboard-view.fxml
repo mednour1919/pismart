@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo2.controller.DashboardView">
+    <children>
+        <VBox alignment="CENTER" spacing="10" layoutX="50" layoutY="20">
+            <children>
+                <Label text="User List" style="-fx-font-size: 18px;"/>
+                <TableView fx:id="userTable">
+                    <columns>
+                        <TableColumn text="Username" fx:id="usernameColumn"/>
+                        <TableColumn text="Email" fx:id="emailColumn"/>
+                    </columns>
+                </TableView>
+                <Button text="Logout" onAction="#handleLogout"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
