@@ -12,12 +12,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="787.0" prefWidth="1092.0" stylesheets="@../Cssfile/Main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.MainController">
+<AnchorPane prefHeight="598.0" prefWidth="903.0" stylesheets="@../Cssfile/Main.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controller.MainController">
 
-    <VBox styleClass="main-container" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <VBox styleClass="main-container" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
-        <!-- En-tête -->
-        <HBox spacing="20" styleClass="header-box">
+
+        <HBox prefHeight="67.0" prefWidth="1084.0" spacing="20" styleClass="header-box">
             <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
                 <image>
                     <Image url="@houm4 - Copie.png" />
@@ -26,18 +30,26 @@
             <Label styleClass="header-title" text="Houmti" />
         </HBox>
 
-        <!-- Contenu principal -->
+
         <TabPane VBox.vgrow="ALWAYS">
-            <!-- Onglet Zones de collecte -->
+
             <Tab closable="false" text="Zone Collecte">
                 <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
                     <HBox spacing="20" styleClass="content-box">
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="719.0" prefWidth="534.0" styleClass="card-scroll">
+
+                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
                             <VBox fx:id="stationVBox" styleClass="card-container" />
                         </ScrollPane>
 
-                        <VBox prefHeight="590.0" prefWidth="555.0" spacing="15" styleClass="form-container">
+
+                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
                             <Label styleClass="section-title" text="Détails Zone" />
+
+
+                            <TextField fx:id="searchZoneField"
+                                       promptText="Rechercher une zone..."
+                                       styleClass="search-field"/>
+
                             <TextField fx:id="stationNameField" promptText="Nom zone" />
                             <TextField fx:id="capacityField" promptText="Population" />
                             <TextField fx:id="zoneField" promptText="Temps de collecte" />
@@ -59,16 +71,25 @@
                 </ScrollPane>
             </Tab>
 
-            <!-- Onglet Camions -->
+
             <Tab closable="false" text="Camion">
                 <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
                     <HBox spacing="20" styleClass="content-box">
-                        <ScrollPane hbarPolicy="NEVER" styleClass="card-scroll">
+
+                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
                             <VBox fx:id="reservationVBox" styleClass="card-container" />
                         </ScrollPane>
 
-                        <VBox spacing="15" styleClass="form-container">
+
+                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
                             <Label styleClass="section-title" text="Gestion Camions" />
+
+
+                            <TextField fx:id="searchCamionField"
+                                       promptText="Rechercher un camion..."
+                                       styleClass="search-field"/>
+
+
                             <TextField fx:id="placeField" promptText="Type camion" />
                             <TextField fx:id="timeField" promptText="Capacité" />
                             <TextField fx:id="placeField1" promptText="Statut" />
