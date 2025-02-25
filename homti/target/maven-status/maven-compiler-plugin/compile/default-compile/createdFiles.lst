@@ -1,7 +1,6 @@
 tn\esprit\interfaces\IReservationService.class
 tn\esprit\test\MainFX.class
 tn\esprit\models\Station.class
-tn\esprit\test\Main.class
 tn\esprit\services\ReservationService.class
 tn\esprit\gui\MainFX.class
 tn\esprit\interfaces\IStationService.class

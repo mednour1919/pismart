@@ -4,15 +4,15 @@ package tn.esprit.models;
 
 
 public class Station {
-    private int id_station;
+    private int IdStation;
     private String nomStation;
     private int capacite;
     private String zone;
     private String status;
 
     // Constructor
-    public Station(int id_station, String nomStation, int capacite, String zone, String status) {
-        this.id_station = id_station;
+    public Station(int IdStation, String nomStation, int capacite, String zone, String status) {
+        this.IdStation = IdStation;
         this.nomStation = nomStation;
         this.capacite = capacite;
         this.zone = zone;
@@ -20,8 +20,8 @@ public class Station {
     }
 
     // Getters and Setters
-    public int getId_station() { return id_station; }
-    public void setId_station(int id_station) { this.id_station = id_station; }
+    public int getIdStation() { return IdStation; }
+    public void setIdStation(int IdStation) { this.IdStation = IdStation; }
     public String getNomStation() { return nomStation; }
     public void setNomStation(String nomStation) { this.nomStation = nomStation; }
     public int getCapacite() { return capacite; }
@@ -34,7 +34,7 @@ public class Station {
     @Override
     public String toString() {
         return "Station{" +
-                "id=" + id_station +
+                "id=" + IdStation +
                 ", name='" + nomStation + '\'' +
                 ", capacity=" + capacite +
                 ", zone='" + zone + '\'' +

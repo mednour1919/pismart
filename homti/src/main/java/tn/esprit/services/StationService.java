@@ -1,16 +1,15 @@
 package tn.esprit.services;
 
 import tn.esprit.models.Station;
-import tn.esprit.interfaces.IStationService;
 import tn.esprit.utils.DataBaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StationService implements IStationService {
+public class StationService {
 
-    @Override
+    // Méthode pour ajouter une station
     public void addStation(Station station) {
         String sql = "INSERT INTO station (nomStation, capacite, zone, status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
@@ -19,13 +18,13 @@ public class StationService implements IStationService {
             pst.setString(3, station.getZone());
             pst.setString(4, station.getStatus());
             pst.executeUpdate();
-            System.out.println("Station added successfully!");
+            System.out.println("Station ajoutée !");
         } catch (SQLException e) {
-            System.err.println("Error adding station: " + e.getMessage());
+            System.err.println("Erreur d'ajout: " + e.getMessage());
         }
     }
 
-    @Override
+    // Méthode pour mettre à jour une station
     public void updateStation(Station station) {
         String sql = "UPDATE station SET nomStation=?, capacite=?, zone=?, status=? WHERE id_station=?";
         try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
@@ -33,48 +32,27 @@ public class StationService implements IStationService {
             pst.setInt(2, station.getCapacite());
             pst.setString(3, station.getZone());
             pst.setString(4, station.getStatus());
-            pst.setInt(5, station.getId_station());
+            pst.setInt(5, station.getIdStation());
             pst.executeUpdate();
-            System.out.println("Station updated successfully!");
+            System.out.println("Station mise à jour !");
         } catch (SQLException e) {
-            System.err.println("Error updating station: " + e.getMessage());
+            System.err.println("Erreur de mise à jour: " + e.getMessage());
         }
     }
 
-    @Override
+    // Méthode pour supprimer une station
     public void deleteStation(int id) {
         String sql = "DELETE FROM station WHERE id_station=?";
         try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.executeUpdate();
-            System.out.println("Station deleted successfully!");
+            System.out.println("Station supprimée !");
         } catch (SQLException e) {
-            System.err.println("Error deleting station: " + e.getMessage());
+            System.err.println("Erreur de suppression: " + e.getMessage());
         }
     }
 
-    @Override
-    public Station findById(int id) {
-        String sql = "SELECT * FROM station WHERE id_station=?";
-        try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
-            pst.setInt(1, id);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return new Station(
-                        rs.getInt("id_station"),
-                        rs.getString("nomStation"),
-                        rs.getInt("capacite"),
-                        rs.getString("zone"),
-                        rs.getString("status")
-                );
-            }
-        } catch (SQLException e) {
-            System.err.println("Error finding station: " + e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
+    // Méthode pour récupérer toutes les stations
     public List<Station> findAll() {
         List<Station> stations = new ArrayList<>();
         String sql = "SELECT * FROM station";
@@ -90,7 +68,30 @@ public class StationService implements IStationService {
                 ));
             }
         } catch (SQLException e) {
-            System.err.println("Error listing stations: " + e.getMessage());
+            System.err.println("Erreur de récupération: " + e.getMessage());
+        }
+        return stations;
+    }
+
+    // Méthode pour récupérer les stations par zone
+    public List<Station> findByZone(String zone) {
+        List<Station> stations = new ArrayList<>();
+        String query = "SELECT * FROM station WHERE zone = ?";
+        try (PreparedStatement stmt = DataBaseConnection.getConnection().prepareStatement(query)) {
+            stmt.setString(1, zone);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Station station = new Station(
+                        rs.getInt("id_station"), // Correction ici: id_station
+                        rs.getString("nomStation"), // Correction ici: nomStation
+                        rs.getInt("capacite"), // Correction ici: capacite
+                        rs.getString("zone"), // Correction ici: zone
+                        rs.getString("status") // Correction ici: status
+                );
+                stations.add(station);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return stations;
     }

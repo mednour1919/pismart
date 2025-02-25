@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
+
 <VBox spacing="10" xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.MainController">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -13,7 +14,11 @@
         <Tab text="Stations" closable="false">
             <VBox spacing="10">
                 <HBox spacing="10">
-                    <ListView fx:id="stationListView" prefWidth="400" prefHeight="300"/>
+                    <VBox spacing="10">
+                        <TextField fx:id="searchZoneField" promptText="Search by Zone"/>
+                        <Button text="Search" onAction="#handleSearchByZone"/>
+                        <FlowPane fx:id="stationCardView" prefWidth="400" prefHeight="300" hgap="10" vgap="10"/>
+                    </VBox>
 
                     <VBox spacing="10">
                         <Label text="Station Details"/>
@@ -26,7 +31,6 @@
                             <Button text="Add" onAction="#handleAddStation"/>
                             <Button text="Update" onAction="#handleUpdateStation"/>
                             <Button text="Delete" onAction="#handleDeleteStation"/>
-                            <Button text="Clear" onAction="#handleClearStation"/>
                         </HBox>
                     </VBox>
                 </HBox>
@@ -36,7 +40,11 @@
         <Tab text="Reservations" closable="false">
             <VBox spacing="10">
                 <HBox spacing="10">
-                    <ListView fx:id="reservationListView" prefWidth="400" prefHeight="300"/>
+                    <VBox spacing="10">
+                        <DatePicker fx:id="searchDateField" promptText="Search by Date"/>
+                        <Button text="Search" onAction="#handleSearchByDate"/>
+                        <FlowPane fx:id="reservationCardView" prefWidth="400" prefHeight="300" hgap="10" vgap="10"/>
+                    </VBox>
 
                     <VBox spacing="10">
                         <Label text="Reservation Details"/>
@@ -44,6 +52,7 @@
                         <DatePicker fx:id="datePicker" promptText="Date"/>
                         <TextField fx:id="timeField" promptText="Time"/>
                         <TextField fx:id="brandField" promptText="Car Brand"/>
+                        <ComboBox fx:id="stationComboBox" promptText="Select Station"/> <!-- Ajout de la ComboBox -->
 
                         <HBox spacing="10">
                             <Button text="Add" onAction="#handleAddReservation"/>

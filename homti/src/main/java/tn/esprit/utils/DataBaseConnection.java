@@ -11,30 +11,31 @@ public class DataBaseConnection {
 
     private static Connection connection;
 
+    // Méthode pour obtenir une connexion unique
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            if (connection == null || connection.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.println("Database connection successful!");
-            } catch (SQLException e) {
-                System.err.println("Database connection failed!");
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                System.err.println("MySQL JDBC Driver not found!");
-                e.printStackTrace();
+                System.out.println("✅ Database connection successful!");
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("❌ Database connection failed!", e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("❌ MySQL JDBC Driver not found!", e);
         }
         return connection;
     }
+
+    // Méthode pour fermer la connexion
     public static void closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("Database connection closed.");
+                connection = null;
+                System.out.println("✅ Database connection closed.");
             } catch (SQLException e) {
-                System.err.println("Error closing database connection!");
-                e.printStackTrace();
+                throw new RuntimeException("❌ Error closing database connection!", e);
             }
         }
     }
