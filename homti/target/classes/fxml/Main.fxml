@@ -12,6 +12,9 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
 
 <VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="tn.esprit.controllers.MainController">
     <padding>
@@ -34,11 +37,20 @@
                         <TextField fx:id="capacityField" promptText="Capacity" />
                         <TextField fx:id="zoneField" promptText="Zone" />
                         <TextField fx:id="statusField" promptText="Status" />
+                        <VBox spacing="10">
+                            <Label text="Carte de la Station"/>
+
+                        </VBox>
 
                         <HBox spacing="10">
                             <Button onAction="#handleAddStation" text="Add" />
                             <Button onAction="#handleUpdateStation" text="Update" />
                             <Button onAction="#handleDeleteStation" text="Delete" />
+                            <AnchorPane>
+                                <WebView fx:id="mapView" prefHeight="500" prefWidth="600"/>
+                            </AnchorPane>
+
+
                         </HBox>
                     </VBox>
                 </HBox>

@@ -30,6 +30,12 @@ import java.util.Hashtable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.fxml.FXML;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+
+
+
 public class MainController {
 
     @FXML private FlowPane stationCardView;
@@ -46,6 +52,7 @@ public class MainController {
     @FXML private TextField timeField;
     @FXML private TextField brandField;
     @FXML private DatePicker searchDateField;
+    @FXML private WebView mapView;
 
 
     private final StationService stationService = new StationService();
@@ -58,12 +65,19 @@ public class MainController {
         refreshStationList();
         refreshReservationList();
         loadStationComboBox();
+        loadMap();
     }
 
     private void loadStationComboBox() {
         stationComboBox.getItems().clear();
         stationComboBox.getItems().addAll(stationService.findAll());
     }
+    private void loadMap() {
+        WebEngine webEngine = mapView.getEngine();
+        String mapUrl = "https://www.google.com/maps"; // URL de Google Maps
+        webEngine.load(mapUrl);
+    }
+
 
     @FXML
     private void handleAddStation() {
