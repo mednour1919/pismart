@@ -13,6 +13,22 @@ import tn.esprit.services.ReservationService;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.Hashtable;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MainController {
 
@@ -63,12 +79,15 @@ public class MainController {
         }
     }
 
+
     @FXML
     private void handleAddReservation() {
         try {
             if (stationComboBox.getValue() == null) {
                 showAlert("Error", "Please select a station", Alert.AlertType.WARNING);
-                return;}
+                return;
+            }
+
             // Récupération de l'ID de la station à partir du combo box
             int stationId = stationComboBox.getValue().getIdStation();
 
@@ -86,6 +105,22 @@ public class MainController {
             // Appel du service pour ajouter la réservation
             reservationService.addReservation(reservation);
 
+            // Génération du QR code pour cette réservation
+            String reservationData = "Reservation ID: " + reservation.getIdReservation();
+            String qrCodePath = "QR_Codes/reservation_" + reservation.getIdReservation() + ".png";
+
+            // Vérifier si le dossier existe, sinon le créer
+            File directory = new File("QR_Codes");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Générer le QR code
+            generateQRCode(reservationData, qrCodePath);
+
+            // Afficher le QR code dans l'ImageView
+            displayQRCode(qrCodePath);
+
             // Rafraîchissement de la liste des réservations et réinitialisation des champs
             refreshReservationList();
             clearReservationFields();
@@ -99,6 +134,7 @@ public class MainController {
         }
     }
 
+
     private void refreshStationList() {
         List<Station> stations = stationService.findAll();
         updateStationCardView(stations);
@@ -106,7 +142,7 @@ public class MainController {
 
     private void refreshReservationList() {
         List<Reservation> reservations = reservationService.findAll();
-            updateReservationCardView(reservations);
+        updateReservationCardView(reservations);
 
     }
 
@@ -287,4 +323,48 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    public static void generateQRCode(String data, String filePath) {
+        int width = 300;
+        int height = 300;
+        String fileType = "png";
+
+        Hashtable<EncodeHintType, Object> hintMap = new Hashtable<>();
+        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+        try {
+            BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, width, height, hintMap);
+            Path path = FileSystems.getDefault().getPath(filePath);
+            MatrixToImageWriter.writeToPath(matrix, fileType, path);
+            System.out.println("QR Code généré avec succès : " + filePath);
+        } catch (WriterException | IOException e) {
+            System.err.println("Erreur lors de la génération du QR Code : " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Exemple d'utilisation : Générer un QR Code pour une réservation avec ID 123
+        String reservationData = "Reservation ID: 123";
+        String qrCodePath = "QR_Codes/reservation_123.png";
+
+        // Vérifier si le dossier existe, sinon le créer
+        File directory = new File("QR_Codes");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        generateQRCode(reservationData, qrCodePath);
+    }
+    @FXML
+    private ImageView qrCodeImageView;
+
+    public void displayQRCode(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            Image qrCodeImage = new Image(file.toURI().toString());
+            qrCodeImageView.setImage(qrCodeImage);
+        } else {
+            System.out.println("QR Code file not found at: " + filePath);
+        }
+    }
+
 }

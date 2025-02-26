@@ -7,6 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.FileSystems;
+
+
+
 public class ReservationService implements IReservationService {
 
     public void addReservation(Reservation reservation) {
@@ -28,6 +39,33 @@ public class ReservationService implements IReservationService {
         }
     }
 
+    private void generateQRCode(Reservation reservation) {
+        try {
+            String qrCodeData = "Réservation ID: " + reservation.getIdReservation() +
+                    "\nNuméro Place: " + reservation.getNumPLACE() +
+                    "\nDate: " + reservation.getDate_Reservation() +
+                    "\nTemps: " + reservation.getTemps() +
+                    "\nMarque: " + reservation.getMarque();
+
+            String qrCodePath = "QR_Codes/";
+            File directory = new File(qrCodePath);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            String qrCodeFilePath = qrCodePath + "Reservation_" + reservation.getIdReservation() + ".png";
+            int width = 300;
+            int height = 300;
+
+            BitMatrix matrix = new MultiFormatWriter().encode(qrCodeData, BarcodeFormat.QR_CODE, width, height);
+            Path path = FileSystems.getDefault().getPath(qrCodeFilePath);
+            MatrixToImageWriter.writeToPath(matrix, "PNG", path);
+
+            System.out.println("QR Code généré : " + qrCodeFilePath);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la génération du QR Code : " + e.getMessage());
+        }
+    }
 
     @Override
     public void updateReservation(Reservation reservation) {

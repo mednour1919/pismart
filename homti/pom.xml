@@ -50,6 +50,20 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.4.4.Final</version>
         </dependency>
+        <!-- ZXing Core -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.4.1</version> <!-- Utilisez une version récente -->
+        </dependency>
+
+        <!-- ZXing JavaSE (nécessaire pour générer des QR codes en PNG) -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
