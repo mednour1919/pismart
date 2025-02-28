@@ -1,0 +1,282 @@
+/* Styles de base */
+.root {
+    -fx-primary: #2c3e50;
+    -fx-secondary: #3498db;
+    -fx-accent: #e74c3c;
+    -fx-light: #ecf0f1;
+    -fx-dark: #34495e;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* En-tête */
+.header-box {
+    -fx-background-color: linear-gradient(to right, -fx-primary, -fx-dark);
+    -fx-padding: 20 40;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 4, 4);
+}
+
+.header-title {
+    -fx-text-fill: -fx-light;
+    -fx-font-size: 32px;
+    -fx-font-weight: 800;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);
+    -fx-font-family: 'Arial Rounded MT Bold';
+}
+
+/* Onglets */
+.tab-pane {
+    -fx-tab-min-width: 150px;
+    -fx-background-color: transparent;
+}
+
+.tab {
+    -fx-background-color: #bdc3c7;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-dark;
+    -fx-padding: 12 25;
+    -fx-transition: all 0.3s ease;
+}
+
+.tab:selected {
+    -fx-background-color: -fx-light;
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 0 0 3 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 2, 2);
+}
+
+/* Conteneur de cartes */
+.card-container {
+    -fx-spacing: 20;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-wrap-text: true;
+}
+
+/* Cartes */
+.card-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 2, 2);
+    -fx-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -fx-perspective: 1000;
+    -fx-pref-width: 300;
+    -fx-max-width: 350;
+    -fx-min-width: 250;
+}
+
+.card-view:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 4, 4);
+    -fx-translate-y: -5;
+    -fx-rotate: 1.5;
+}
+
+/* Barres de défilement */
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c1c1c1;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: linear-gradient(to bottom, -fx-secondary, #2980b9);
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+    -fx-transition: all 0.2s ease;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #3498db, #216795);
+    -fx-translate-y: -2;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.button-danger {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Conteneur de formulaire */
+.form-container {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-padding: 25;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 2, 2);
+}
+
+/* Titres de section */
+.section-title {
+    -fx-text-fill: -fx-primary;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 0 0 2 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 1, 1);
+}
+
+/* Champs de texte */
+.text-field {
+    -fx-background-color: -fx-light;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5;
+    -fx-padding: 8 12;
+    -fx-transition: all 0.3s ease;
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.15), 8, 0, 4, 4);
+}
+
+/* Images */
+ImageView {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 2, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+ImageView:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 4);
+}
+
+/* Barre de recherche */
+.search-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 25;
+    -fx-padding: 10 15 10 40;
+    -fx-font-size: 14px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 12px center;
+    -fx-background-size: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.1), 8, 0, 0, 2);
+    -fx-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-field:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 2;
+    -fx-background-color: #f8f9fa;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.2), 10, 0, 0, 3);
+}
+
+/* Animation de surbrillance pour la recherche */
+@keyframes search-pulse {
+    0% { -fx-border-color: #d1d5db; }
+    50% { -fx-border-color: -fx-secondary; }
+    100% { -fx-border-color: #d1d5db; }
+}
+
+.search-highlight {
+    -fx-border-color: -fx-secondary !important;
+    -fx-border-width: 2 !important;
+    -fx-border-radius: 10;
+    -fx-background-color: #f8f9fa !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.15), 15, 0, 4, 4);
+}
+
+/* Compteur de résultats de recherche */
+.search-results-count {
+    -fx-text-fill: -fx-secondary;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+    -fx-background-color: rgba(52,152,219,0.1);
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+}
+
+/* Conteneur de carte (Map) */
+.map-container {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 2, 2);
+}
+
+/* Champs de coordonnées */
+.coordinate-field {
+    -fx-pref-width: 200px;
+    -fx-background-radius: 3px;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 5;
+    -fx-padding: 8 12;
+    -fx-transition: all 0.3s ease;
+}
+
+.coordinate-field:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.15), 8, 0, 4, 4);
+}
+
+/* Boutons primaires */
+.button-primary {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
+    -fx-transition: all 0.2s ease;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1976D2;
+    -fx-translate-y: -2;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button-primary:pressed {
+    -fx-translate-y: 1;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Animations */
+@keyframes float {
+    0% { -fx-translate-y: 0; }
+    50% { -fx-translate-y: -5px; }
+    100% { -fx-translate-y: 0; }
+}
+
+.header-box:hover ImageView {
+    -fx-animation: float 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { -fx-scale-x: 1; -fx-scale-y: 1; }
+    50% { -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
+    100% { -fx-scale-x: 1; -fx-scale-y: 1; }
+}
+
+.button:hover {
+    -fx-animation: pulse 1.5s infinite;
+}

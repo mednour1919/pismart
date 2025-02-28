@@ -34,26 +34,76 @@ import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 
+import org.controlsfx.control.Notifications;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+
+import javafx.scene.control.TextField; // Correct pour JavaFX
+import java.awt.TrayIcon.MessageType;
+
+
+
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.AWTException;
+import java.awt.Toolkit;
+
+import javafx.scene.image.Image;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.AWTException;
+
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import java.util.Map;
+import java.util.HashMap;
 
 
 public class MainController {
 
-    @FXML private FlowPane stationCardView;
-    @FXML private TextField stationNameField;
-    @FXML private TextField capacityField;
-    @FXML private TextField zoneField;
-    @FXML private TextField statusField;
-    @FXML private TextField searchZoneField;
-    @FXML private ComboBox<Station> stationComboBox;
+    @FXML
+    private FlowPane stationCardView;
+    @FXML
+    private TextField stationNameField;
+    @FXML
+    private TextField capacityField;
+    @FXML
+    private TextField zoneField;
+    @FXML
+    private TextField statusField;
+    @FXML
+    private TextField searchZoneField;
+    @FXML
+    private ComboBox<Station> stationComboBox;
 
-    @FXML private FlowPane reservationCardView;
-    @FXML private TextField placeField;
-    @FXML private DatePicker datePicker;
-    @FXML private TextField timeField;
-    @FXML private TextField brandField;
-    @FXML private DatePicker searchDateField;
-    @FXML private WebView mapView;
+    @FXML
+    private FlowPane reservationCardView;
+    @FXML
+    private TextField placeField;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private TextField timeField;
+    @FXML
+    private TextField brandField;
+    @FXML
+    private DatePicker searchDateField;
+    @FXML
+    private WebView mapView;
 
+
+    @FXML
+    private BarChart<String, Number> reservationChart;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
 
     private final StationService stationService = new StationService();
     private final ReservationService reservationService = new ReservationService();
@@ -66,12 +116,14 @@ public class MainController {
         refreshReservationList();
         loadStationComboBox();
         loadMap();
+        loadReservationStatistics();
     }
 
     private void loadStationComboBox() {
         stationComboBox.getItems().clear();
         stationComboBox.getItems().addAll(stationService.findAll());
     }
+
     private void loadMap() {
         WebEngine webEngine = mapView.getEngine();
         String mapUrl = "https://www.google.com/maps"; // URL de Google Maps
@@ -102,48 +154,45 @@ public class MainController {
                 return;
             }
 
-            // Récupération de l'ID de la station à partir du combo box
             int stationId = stationComboBox.getValue().getIdStation();
-
-            // Création de la réservation avec l'ID de la station et le nom de la station
             Reservation reservation = new Reservation(
-                    0,  // ID de réservation (0 signifie que l'ID sera généré automatiquement par la base de données)
+                    0,
                     placeField.getText(),
                     Date.valueOf(datePicker.getValue()),
                     timeField.getText(),
                     brandField.getText(),
-                    stationComboBox.getValue().getNomStation(), // Nom de la station
-                    stationId  // ID de la station
+                    stationComboBox.getValue().getNomStation(),
+                    stationId
             );
 
-            // Appel du service pour ajouter la réservation
             reservationService.addReservation(reservation);
 
-            // Génération du QR code pour cette réservation
-            String reservationData = "Reservation ID: " + reservation.getIdReservation();
+            // Détails de la réservation à afficher dans le QR code
+            String reservationData = "Reservation Details:\n" +
+                    "Place: " + reservation.getNumPLACE() + "\n" +
+                    "Date: " + reservation.getDate_Reservation() + "\n" +
+                    "Time: " + reservation.getTemps() + "\n" +
+                    "Brand: " + reservation.getMarque() + "\n" +
+                    "Station: " + reservation.getNomStation();
             String qrCodePath = "QR_Codes/reservation_" + reservation.getIdReservation() + ".png";
 
-            // Vérifier si le dossier existe, sinon le créer
             File directory = new File("QR_Codes");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            // Générer le QR code
+            // Générer le QR code avec les nouveaux détails
             generateQRCode(reservationData, qrCodePath);
 
             // Afficher le QR code dans l'ImageView
             displayQRCode(qrCodePath);
 
-            // Rafraîchissement de la liste des réservations et réinitialisation des champs
             refreshReservationList();
             clearReservationFields();
 
-            // Affichage du message de succès
             showAlert("Success", "Reservation added successfully!", Alert.AlertType.INFORMATION);
 
         } catch (Exception e) {
-            // Gestion des erreurs et affichage du message d'erreur
             showAlert("Error", "Error adding reservation: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -237,24 +286,46 @@ public class MainController {
         updateStationCardView(filteredStations);
     }
 
+
     @FXML
     private void handleUpdateStation() {
         if (selectedStation == null) {
             showAlert("Error", "Please select a station to update.", Alert.AlertType.WARNING);
             return;
         }
+
         try {
             selectedStation.setNomStation(stationNameField.getText());
             selectedStation.setCapacite(Integer.parseInt(capacityField.getText()));
             selectedStation.setZone(zoneField.getText());
-            selectedStation.setStatus(statusField.getText());
 
+            String status = statusField.getText();
+            if (status == null || status.trim().isEmpty()) {
+                showAlert("Error", "Status cannot be empty.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            selectedStation.setStatus(status);
             stationService.updateStation(selectedStation);
+
             refreshStationList();
             loadStationComboBox();
             clearStationFields();
+
+            // Afficher la notification système
+            //showSystemTrayNotification("Station Updated", "Status updated to: " + selectedStation.getStatus());
+
+            // Ajout de la notification JavaFX
+            Notifications.create()
+                    .title("Station Updated")
+                    .text("Station " + selectedStation.getNomStation() + " updated successfully!")
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .showInformation();
+
             showAlert("Success", "Station updated successfully!", Alert.AlertType.INFORMATION);
         } catch (Exception e) {
+            e.printStackTrace();
             showAlert("Error", "Error updating station: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -317,6 +388,7 @@ public class MainController {
         clearReservationFields();
         showAlert("Success", "Reservation deleted successfully!", Alert.AlertType.INFORMATION);
     }
+
     @FXML
     private void handleClearReservation() {
         // Réinitialisation des champs liés à la réservation
@@ -337,6 +409,7 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     public static void generateQRCode(String data, String filePath) {
         int width = 300;
         int height = 300;
@@ -368,6 +441,7 @@ public class MainController {
 
         generateQRCode(reservationData, qrCodePath);
     }
+
     @FXML
     private ImageView qrCodeImageView;
 
@@ -381,4 +455,27 @@ public class MainController {
         }
     }
 
+    private void loadReservationStatistics() {
+        List<Reservation> reservations = reservationService.findAll();
+        Map<String, Integer> stationStats = new HashMap<>();
+
+        for (Reservation reservation : reservations) {
+            String station = reservation.getNomStation();
+            stationStats.put(station, stationStats.getOrDefault(station, 0) + 1);
+        }
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Réservations par station");
+
+        for (Map.Entry<String, Integer> entry : stationStats.entrySet()) {
+            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+        }
+
+        reservationChart.getData().clear();
+        reservationChart.getData().add(series);
+    }
+
+
 }
+
+
