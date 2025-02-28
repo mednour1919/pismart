@@ -3,13 +3,12 @@ package tn.esprit.services;
 import tn.esprit.model.Projet;
 import tn.esprit.model.Fournisseur;
 import tn.esprit.utils.MyDatabase;
-import tn.esprit.interfaces.IService;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceProjet implements IService<Projet> {
+public class ServiceProjet {
 
     private Connection connection;
 
@@ -17,7 +16,6 @@ public class ServiceProjet implements IService<Projet> {
         this.connection = MyDatabase.getInstance().getCnx();
     }
 
-    @Override
     public void add(Projet projet) {
         String query = "INSERT INTO projet (nom, description, budget, depense, dateDebut, dateFin, statut, fournisseur_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -35,7 +33,6 @@ public class ServiceProjet implements IService<Projet> {
         }
     }
 
-    @Override
     public List<Projet> getAll() {
         List<Projet> projets = new ArrayList<>();
         String query = "SELECT p.*, f.nom AS nom_fournisseur FROM projet p LEFT JOIN fournisseur f ON p.fournisseur_id = f.id";
@@ -66,7 +63,6 @@ public class ServiceProjet implements IService<Projet> {
         return projets;
     }
 
-    @Override
     public void update(Projet projet) {
         String query = "UPDATE projet SET nom = ?, description = ?, budget = ?, depense = ?, dateDebut = ?, dateFin = ?, statut = ?, fournisseur_id = ? WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -85,7 +81,6 @@ public class ServiceProjet implements IService<Projet> {
         }
     }
 
-    @Override
     public void delete(Projet projet) {
         String query = "DELETE FROM projet WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(query)) {

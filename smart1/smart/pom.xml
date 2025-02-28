@@ -36,6 +36,26 @@
             <artifactId>protobuf-java</artifactId>
             <version>3.21.9</version>
         </dependency>
+        <dependency>
+            <groupId>com.konghq</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>3.13.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.0</version> <!-- Choisissez la dernière version disponible -->
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>20</version> <!-- Remplacez par la version de JavaFX que vous utilisez -->
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

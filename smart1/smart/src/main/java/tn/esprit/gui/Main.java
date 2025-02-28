@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/your/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main.fxml"));
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.setTitle("Gestion des Signalements et Réponses");
         primaryStage.show();

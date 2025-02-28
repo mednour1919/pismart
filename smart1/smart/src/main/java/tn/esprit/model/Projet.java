@@ -11,9 +11,9 @@ public class Projet {
     private Date dateDebut;
     private Date dateFin;
     private String statut;
-    private Fournisseur fournisseur; // Ajout du champ fournisseur
+    private Fournisseur fournisseur;
 
-    // Constructeur
+    // Constructeur sans ID (pour l'ajout)
     public Projet(String nom, String description, double budget, double depense, Date dateDebut, Date dateFin, String statut, Fournisseur fournisseur) {
         this.nom = nom;
         this.description = description;
@@ -25,7 +25,7 @@ public class Projet {
         this.fournisseur = fournisseur;
     }
 
-    // Constructeur avec ID (utile pour la mise à jour)
+    // Constructeur avec ID (pour la mise à jour)
     public Projet(int id, String nom, String description, double budget, double depense, Date dateDebut, Date dateFin, String statut, Fournisseur fournisseur) {
         this.id = id;
         this.nom = nom;
@@ -113,16 +113,6 @@ public class Projet {
 
     @Override
     public String toString() {
-        return "Projet{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                ", budget=" + budget +
-                ", depense=" + depense +
-                ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
-                ", statut='" + statut + '\'' +
-                ", fournisseur=" + (fournisseur != null ? fournisseur.getNom() : "Aucun") +
-                '}';
+        return nom + " - " + (fournisseur != null ? fournisseur.getNom() : "Aucun fournisseur");
     }
 }

@@ -1,22 +1,27 @@
 package tn.esprit.test;
 
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import tn.esprit.utils.QRCodeGenerator; // Assurez-vous d'importer QRCodeGenerator
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Générer le QR code
+        try {
+            String data = "https://example.com";
+            String filePath = "QRCode.png"; // Le chemin où vous voulez sauvegarder le QR code
+            QRCodeGenerator.generateQRCode(data, filePath); // Génère le QR code
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Charger le fichier FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main.fxml"));
-
-
         // Créer une scène à partir du fichier FXML
         Parent root = loader.load();
 

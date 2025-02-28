@@ -1,6 +1,5 @@
 package tn.esprit.services;
 
-import tn.esprit.interfaces.IService;
 import tn.esprit.model.Fournisseur;
 import tn.esprit.utils.MyDatabase;
 
@@ -8,56 +7,34 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceFournisseur implements IService<Fournisseur> {
+public class ServiceFournisseur {
 
     private Connection connection;
 
     public ServiceFournisseur() {
-        // Utilisation de MyDatabase pour obtenir la connexion
         this.connection = MyDatabase.getInstance().getCnx();
     }
 
-    // Ajouter un fournisseur
-    @Override
     public void add(Fournisseur fournisseur) {
-        String sql = "INSERT INTO fournisseur (nom, adresse) VALUES (?, ?)";
+        String sql = "INSERT INTO fournisseur (nom, adresse, certifications, risques, performances, email, telephone, siteWeb, secteurActivite, responsable, estActif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, fournisseur.getNom());
             statement.setString(2, fournisseur.getAdresse());
+            statement.setString(3, fournisseur.getCertifications());
+            statement.setString(4, fournisseur.getRisques());
+            statement.setString(5, fournisseur.getPerformances());
+            statement.setString(6, fournisseur.getEmail());
+            statement.setString(7, fournisseur.getTelephone());
+            statement.setString(8, fournisseur.getSiteWeb());
+            statement.setString(9, fournisseur.getSecteurActivite());
+            statement.setString(10, fournisseur.getResponsable());
+            statement.setBoolean(11, fournisseur.isEstActif());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Mettre à jour un fournisseur
-    @Override
-    public void update(Fournisseur fournisseur) {
-        String sql = "UPDATE fournisseur SET nom = ?, adresse = ? WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, fournisseur.getNom());
-            statement.setString(2, fournisseur.getAdresse());
-            statement.setInt(3, fournisseur.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Supprimer un fournisseur
-    @Override
-    public void delete(Fournisseur fournisseur) {
-        String sql = "DELETE FROM fournisseur WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, fournisseur.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Récupérer tous les fournisseurs
-    @Override
     public List<Fournisseur> getAll() {
         List<Fournisseur> fournisseurs = new ArrayList<>();
         String sql = "SELECT * FROM fournisseur";
@@ -67,7 +44,16 @@ public class ServiceFournisseur implements IService<Fournisseur> {
                 Fournisseur fournisseur = new Fournisseur(
                         resultSet.getInt("id"),
                         resultSet.getString("nom"),
-                        resultSet.getString("adresse")
+                        resultSet.getString("adresse"),
+                        resultSet.getString("certifications"),
+                        resultSet.getString("risques"),
+                        resultSet.getString("performances"),
+                        resultSet.getString("email"),
+                        resultSet.getString("telephone"),
+                        resultSet.getString("siteWeb"),
+                        resultSet.getString("secteurActivite"),
+                        resultSet.getString("responsable"),
+                        resultSet.getBoolean("estActif")
                 );
                 fournisseurs.add(fournisseur);
             }
@@ -77,23 +63,34 @@ public class ServiceFournisseur implements IService<Fournisseur> {
         return fournisseurs;
     }
 
-    // Récupérer un fournisseur par son ID
-    public Fournisseur getById(int id) {
-        Fournisseur fournisseur = null;
-        String sql = "SELECT * FROM fournisseur WHERE id = ?";
+    public void update(Fournisseur fournisseur) {
+        String sql = "UPDATE fournisseur SET nom = ?, adresse = ?, certifications = ?, risques = ?, performances = ?, email = ?, telephone = ?, siteWeb = ?, secteurActivite = ?, responsable = ?, estActif = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                fournisseur = new Fournisseur(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nom"),
-                        resultSet.getString("adresse")
-                );
-            }
+            statement.setString(1, fournisseur.getNom());
+            statement.setString(2, fournisseur.getAdresse());
+            statement.setString(3, fournisseur.getCertifications());
+            statement.setString(4, fournisseur.getRisques());
+            statement.setString(5, fournisseur.getPerformances());
+            statement.setString(6, fournisseur.getEmail());
+            statement.setString(7, fournisseur.getTelephone());
+            statement.setString(8, fournisseur.getSiteWeb());
+            statement.setString(9, fournisseur.getSecteurActivite());
+            statement.setString(10, fournisseur.getResponsable());
+            statement.setBoolean(11, fournisseur.isEstActif());
+            statement.setInt(12, fournisseur.getId());
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return fournisseur;
+    }
+
+    public void delete(Fournisseur fournisseur) {
+        String sql = "DELETE FROM fournisseur WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, fournisseur.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
