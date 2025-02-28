@@ -17,17 +17,26 @@ public class ServiceCamion implements IService<Camion> {
 
     @Override
     public void add(Camion camion) {
-        String qry = "INSERT INTO `Camion`(`type`, `statut`, `capacity`, `id_zone`) VALUES (?,?,?,?)";
+        String qry = "INSERT INTO `Camion`(`type`, `statut`, `capacity`, `id_zone`, `image`) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
             pstm.setString(1, camion.getType());
             pstm.setString(2, camion.getStatut());
             pstm.setInt(3, camion.getCapacity());
-            if (camion.getId_zone() != null) {
+
+            if(camion.getId_zone() != null) {
                 pstm.setInt(4, camion.getId_zone());
             } else {
                 pstm.setNull(4, Types.INTEGER);
             }
+
+
+            if(camion.getImage() != null) {
+                pstm.setBytes(5, camion.getImage());
+            } else {
+                pstm.setNull(5, Types.BLOB);
+            }
+
             pstm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -43,7 +52,7 @@ public class ServiceCamion implements IService<Camion> {
             Statement stm = cnx.createStatement();
             ResultSet rs = stm.executeQuery(qry);
 
-            while (rs.next()) {
+            while(rs.next()) {
                 Camion c = new Camion();
                 c.setId(rs.getInt("id"));
                 c.setType(rs.getString("type"));
@@ -51,29 +60,40 @@ public class ServiceCamion implements IService<Camion> {
                 c.setCapacity(rs.getInt("capacity"));
                 c.setId_zone(rs.getInt("id_zone"));
 
+                Blob imageBlob = rs.getBlob("image");
+                if(imageBlob != null) {
+                    c.setImage(imageBlob.getBytes(1, (int) imageBlob.length()));
+                }
+
                 camions.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return camions;
     }
 
     @Override
     public void update(Camion camion) {
-        String qry = "UPDATE `Camion` SET `type`=?, `statut`=?, `capacity`=?, `id_zone`=? WHERE `id`=?";
+        String qry = "UPDATE `Camion` SET `type`=?, `statut`=?, `capacity`=?, `id_zone`=?, `image`=? WHERE `id`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
             pstm.setString(1, camion.getType());
             pstm.setString(2, camion.getStatut());
             pstm.setInt(3, camion.getCapacity());
-            if (camion.getId_zone() != null) {
+
+            if(camion.getId_zone() != null) {
                 pstm.setInt(4, camion.getId_zone());
             } else {
                 pstm.setNull(4, Types.INTEGER);
             }
-            pstm.setInt(5, camion.getId());
+            if(camion.getImage() != null) {
+                pstm.setBytes(5, camion.getImage());
+            } else {
+                pstm.setNull(5, Types.BLOB);
+            }
+
+            pstm.setInt(6, camion.getId());
             pstm.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

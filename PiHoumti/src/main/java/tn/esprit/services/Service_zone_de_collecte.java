@@ -1,14 +1,14 @@
 package tn.esprit.services;
 
 import tn.esprit.interfaces.IService;
-import tn.esprit.models.zone_de_collecte;
+import tn.esprit.models.Zone_de_collecte;
 import tn.esprit.utils.MyDatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Service_zone_de_collecte implements IService<zone_de_collecte> {
+public class Service_zone_de_collecte implements IService<Zone_de_collecte> {
     private Connection cnx;
 
     public Service_zone_de_collecte() {
@@ -16,7 +16,7 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
     }
 
     @Override
-    public void add(zone_de_collecte zone) {
+    public void add(Zone_de_collecte zone) {
         String qry = "INSERT INTO `zone_de_collecte`(`nom`, `population`, `temps_de_collecte`) VALUES (?,?,?)";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
@@ -30,8 +30,8 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
     }
 
     @Override
-    public List<zone_de_collecte> getAll() {
-        List<zone_de_collecte> zones = new ArrayList<>();
+    public List<Zone_de_collecte> getAll() {
+        List<Zone_de_collecte> zones = new ArrayList<>();
         String qry = "SELECT * FROM `zone_de_collecte`";
 
         try {
@@ -39,7 +39,7 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
             ResultSet rs = stm.executeQuery(qry);
 
             while (rs.next()) {
-                zone_de_collecte z = new zone_de_collecte();
+                Zone_de_collecte z = new Zone_de_collecte();
                 z.setId(rs.getInt("id"));
                 z.setNom(rs.getString("nom"));
                 z.setPopulation(rs.getInt("population"));
@@ -55,7 +55,7 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
     }
 
     @Override
-    public void update(zone_de_collecte zone) {
+    public void update(Zone_de_collecte zone) {
         String qry = "UPDATE `zone_de_collecte` SET `nom`=?, `population`=?, `temps_de_collecte`=? WHERE `id`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
@@ -70,7 +70,7 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
     }
 
     @Override
-    public void delete(zone_de_collecte zone) {
+    public void delete(Zone_de_collecte zone) {
         String qry = "DELETE FROM `zone_de_collecte` WHERE `id`=?";
         try {
             PreparedStatement pstm = cnx.prepareStatement(qry);
@@ -82,12 +82,12 @@ public class Service_zone_de_collecte implements IService<zone_de_collecte> {
     }
 
     @Override
-    public void create(zone_de_collecte zone) {
+    public void create(Zone_de_collecte zone) {
         add(zone);
     }
 
     @Override
-    public void view(zone_de_collecte zone) {
+    public void view(Zone_de_collecte zone) {
         System.out.println(zone);
     }
 }

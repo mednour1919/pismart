@@ -1,76 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.MainController">
-    <children>
-        <VBox prefHeight="362.0" prefWidth="669.0" spacing="10">
-            <padding>
-                <Insets bottom="20" left="20" right="20" top="20" />
-            </padding>
+<AnchorPane prefHeight="598.0" prefWidth="903.0" stylesheets="@../Cssfile/Main.css"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controller.MainController">
 
-            <TabPane VBox.vgrow="ALWAYS">
-                <Tab closable="false" text="Zone Collecte">
-                    <VBox spacing="10">
-                        <HBox spacing="10">
-                            <ListView fx:id="stationListView" prefHeight="300" prefWidth="400" />
+    <VBox styleClass="main-container" AnchorPane.bottomAnchor="0"
+          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
-                            <VBox spacing="10">
-                                <Label text="Station Details" />
-                                <TextField fx:id="stationNameField1" layoutX="10.0" layoutY="38.0" onAction="#handleDeleteZone" promptText="ID" />
-                                <TextField fx:id="stationNameField" promptText="Nom zone" />
-                                <TextField fx:id="capacityField" promptText="Population" />
-                                <TextField fx:id="zoneField" promptText="temps" />
+        <HBox prefHeight="67.0" prefWidth="1084.0" spacing="20" styleClass="header-box">
+            <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                <image>
+                    <Image url="@houm4 - Copie.png" />
+                </image>
+            </ImageView>
+            <VBox spacing="5">
+                <Label styleClass="header-title" text="Houmti" />
+                <Label styleClass="header-subtitle" text="Gestion Intelligente des Déchets Urbains"
+                       style="-fx-text-fill: white;"/>
+            </VBox>
+        </HBox>
 
-                                <HBox spacing="10">
-                                    <Button onAction="#handleAddZone" text="Add" />
-                                    <Button fx:id="btnUpdate" onAction="#handleUpdateZone" text="Update" />
-                                    <Button fx:id="btnDelete" onAction="#handleDeleteZone" text="Delete" />
-                                    <Button onAction="#handleClearZone" text="Clear" />
-                                </HBox>
+        <TabPane VBox.vgrow="ALWAYS">
+
+            <Tab closable="false" text="Zone Collecte">
+                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+                    <HBox spacing="20" styleClass="content-box">
+                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
+                            <VBox fx:id="stationVBox" styleClass="card-container" />
+                        </ScrollPane>
+
+                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
+                            <Label styleClass="section-title" text="Détails Zone" />
+                            <TextField fx:id="searchZoneField" promptText="Rechercher une zone..." styleClass="search-field"/>
+                            <TextField fx:id="stationNameField" promptText="Nom zone" />
+                            <TextField fx:id="capacityField" promptText="Population" />
+                            <TextField fx:id="zoneField" promptText="Temps de collecte" />
+
+                            <HBox spacing="10" styleClass="button-container">
+                                <Button onAction="#handleAddZone" text="Ajouter" />
+                                <Button onAction="#handleUpdateZone" text="Modifier" />
+                                <Button onAction="#handleDeleteZone" styleClass="button-danger" text="Supprimer" />
+                                <Button onAction="#handleClearZone" text="Vider" />
+                            </HBox>
+
+                            <HBox alignment="CENTER">
+                                <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
+                                    <image>
+                                        <Image url="@localisation-sur-la-carte.png" />
+                                    </image>
+                                </ImageView>
+                            </HBox>
+
+                            <VBox styleClass="info-box" spacing="5">
+                                <Label styleClass="info-title" text="Optimisation des Collectes" />
+                                <Label styleClass="info-text" text="• Surveillance en temps réel des niveaux de remplissage" />
+                                <Label styleClass="info-text" text="• Planification dynamique des tournées" />
+                                <Label styleClass="info-text" text="• Analyse prédictive des zones critiques" />
                             </VBox>
-                        </HBox>
-                    </VBox>
-                </Tab>
+                        </VBox>
+                    </HBox>
+                </ScrollPane>
+            </Tab>
 
-                <Tab closable="false" text="Camion">
-                    <VBox spacing="10">
-                        <HBox spacing="10">
-                            <ListView fx:id="reservationListView" prefHeight="300" prefWidth="400" />
 
-                            <VBox spacing="10">
-                                <Label text="Reservation Details" />
-                                <TextField fx:id="placeField" promptText="type " />
-                                <TextField fx:id="timeField" promptText="capacite" />
-                                <TextField fx:id="placeField1" layoutX="10.0" layoutY="38.0" promptText="status" />
-                                <TextField fx:id="brandField" promptText="id_zone" />
+            <Tab closable="false" text="Camion">
+                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+                    <HBox spacing="20" styleClass="content-box">
+                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
+                            <VBox fx:id="reservationVBox" styleClass="card-container" />
+                        </ScrollPane>
 
-                                <HBox spacing="10">
-                                    <Button onAction="#handleAddCamion" text="Add" />
-                                    <Button onAction="#handleUpdateCamion" text="Update" />
-                                    <Button onAction="#handleDeleteCamion" text="Delete" />
-                                    <Button onAction="#handleClearCamion" text="Clear" />
-                                </HBox>
+                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
+                            <Label styleClass="section-title" text="Gestion Camions" />
+                            <TextField fx:id="searchCamionField" promptText="Rechercher un camion..." styleClass="search-field"/>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Button text="Choisir une image" onAction="#handleImageUpload" styleClass="upload-button"/>
+                                <Button text="Supprimer l'image" onAction="#handleDeleteImage" styleClass="button-danger"/>
+                                <ImageView fx:id="camionImageView" fitWidth="150" fitHeight="100" preserveRatio="true" styleClass="image-preview"/>
+                            </HBox>
+
+                            <TextField fx:id="placeField" promptText="Type camion" />
+                            <TextField fx:id="timeField" promptText="Capacité" />
+                            <TextField fx:id="placeField1" promptText="Statut" />
+                            <TextField fx:id="brandField" promptText="ID Zone" />
+
+                            <HBox spacing="10" styleClass="button-container">
+                                <Button onAction="#handleAddCamion" text="Ajouter" />
+                                <Button onAction="#handleUpdateCamion" text="Modifier" />
+                                <Button onAction="#handleDeleteCamion" styleClass="button-danger" text="Supprimer" />
+                                <Button onAction="#handleClearCamion" text="Vider" />
+                            </HBox>
+
+                            <HBox alignment="CENTER">
+                                <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </HBox>
+
+                            <VBox styleClass="info-box" spacing="5">
+                                <Label styleClass="info-title" text="Suivi des Camions en Temps Réel" />
+                                <Label styleClass="info-text" text="• Géolocalisation précise des véhicules" />
+                                <Label styleClass="info-text" text="• Monitoring des performances en direct" />
+                                <Label styleClass="info-text" text="• Alertes maintenance prédictive" />
                             </VBox>
-                        </HBox>
-                    </VBox>
-                </Tab>
-            </TabPane>
-            <AnchorPane prefHeight="62.0" prefWidth="630.0">
-
-            </AnchorPane>
-            <AnchorPane prefHeight="66.0" prefWidth="630.0">
-
-            </AnchorPane>
-        </VBox>
-    </children>
+                        </VBox>
+                    </HBox>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </VBox>
 </AnchorPane>
