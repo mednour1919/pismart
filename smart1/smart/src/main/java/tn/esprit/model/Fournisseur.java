@@ -14,7 +14,6 @@ public class Fournisseur {
     private String responsable;
     private boolean estActif;
 
-    // Constructeur avec tous les attributs
     public Fournisseur(int id, String nom, String adresse, String certifications, String risques, String performances, String email, String telephone, String siteWeb, String secteurActivite, String responsable,  boolean estActif) {
         this.id = id;
         this.nom = nom;
@@ -30,7 +29,6 @@ public class Fournisseur {
         this.estActif = estActif;
     }
 
-    // Constructeur sans ID (pour l'ajout)
     public Fournisseur(String nom, String adresse, String certifications, String risques, String performances, String email, String telephone, String siteWeb, String secteurActivite, String responsable,  boolean estActif) {
         this.nom = nom;
         this.adresse = adresse;
@@ -48,7 +46,6 @@ public class Fournisseur {
     public Fournisseur(int fournisseurId, String nomFournisseur, String s) {
     }
 
-    // Getters et setters
     public int getId() {
         return id;
     }
@@ -149,6 +146,6 @@ public class Fournisseur {
 
     @Override
     public String toString() {
-        return nom; // Pour l'affichage dans les ComboBox ou ListView
+        return nom;
     }
 }

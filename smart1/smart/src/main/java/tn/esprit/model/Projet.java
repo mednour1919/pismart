@@ -13,7 +13,6 @@ public class Projet {
     private String statut;
     private Fournisseur fournisseur;
 
-    // Constructeur sans ID (pour l'ajout)
     public Projet(String nom, String description, double budget, double depense, Date dateDebut, Date dateFin, String statut, Fournisseur fournisseur) {
         this.nom = nom;
         this.description = description;
@@ -25,7 +24,6 @@ public class Projet {
         this.fournisseur = fournisseur;
     }
 
-    // Constructeur avec ID (pour la mise à jour)
     public Projet(int id, String nom, String description, double budget, double depense, Date dateDebut, Date dateFin, String statut, Fournisseur fournisseur) {
         this.id = id;
         this.nom = nom;
@@ -38,7 +36,6 @@ public class Projet {
         this.fournisseur = fournisseur;
     }
 
-    // Getters et setters
     public int getId() {
         return id;
     }
@@ -104,7 +101,7 @@ public class Projet {
     }
 
     public Fournisseur getFournisseur() {
-        return fournisseur;
+        return this.fournisseur;
     }
 
     public void setFournisseur(Fournisseur fournisseur) {

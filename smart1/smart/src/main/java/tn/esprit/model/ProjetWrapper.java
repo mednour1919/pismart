@@ -1,5 +1,4 @@
 package tn.esprit.model;
-
 public class ProjetWrapper {
     private Projet projet;
     private double latitude;
@@ -15,7 +14,6 @@ public class ProjetWrapper {
         this.longitudesZoneImpact = longitudesZoneImpact;
     }
 
-    // Getters
     public Projet getProjet() {
         return projet;
     }

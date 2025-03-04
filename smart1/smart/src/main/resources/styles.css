@@ -1,147 +1,223 @@
 /* Style général */
 .root {
-    -fx-font-family: 'Segoe UI', 'Arial', sans-serif; /* Police moderne */
-    -fx-base: #3498db; /* Bleu */
-    -fx-background: #f4f6f9; /* Gris clair avec une nuance plus douce */
+    -fx-font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+    -fx-base: #4A90E2; /* Bleu vif */
+    -fx-background: #F8F9FA; /* Gris très clair */
+    -fx-primary: #4A90E2; /* Bleu vif */
+    -fx-secondary: #357ABD; /* Bleu plus foncé */
+    -fx-accent: #FF6B6B; /* Rouge pour les accents */
+    -fx-light: #F8F9FA; /* Gris très clair */
+    -fx-dark: #2C3E50; /* Gris foncé pour les textes */
 }
 
 /* Style des boutons */
 .button {
-    -fx-background-color: #3498db; /* Bleu */
+    -fx-background-color: linear-gradient(to bottom, -fx-primary, -fx-secondary); /* Dégradé bleu */
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 8px 16px;
-    -fx-border-radius: 6px;
+    -fx-font-size: 14px; /* Taille de police légèrement augmentée */
+    -fx-padding: 8px 16px; /* Padding augmenté */
+    -fx-border-radius: 6px; /* Bords plus arrondis */
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
     -fx-transition: all 0.3s ease-in-out;
+    -fx-cursor: hand;
+    -fx-min-width: 100px; /* Largeur minimale augmentée */
 }
 
 .button:hover {
-    -fx-background-color: #2980b9; /* Bleu foncé */
+    -fx-background-color: linear-gradient(to bottom, #357ABD, #2C3E50); /* Dégradé bleu plus foncé */
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
 }
 
-/* Style des labels */
-.label {
-    -fx-text-fill: #2c3e50; /* Gris foncé */
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-transition: all 0.3s ease;
+.button-danger {
+    -fx-background-color: #FF6B6B; /* Rouge pour les boutons dangereux */
+    -fx-text-fill: white;
 }
 
-.dashboard-label {
-    -fx-font-size: 18px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #2c3e50; /* Gris foncé */
-}
-
-.dashboard-value {
-    -fx-font-size: 24px;
-    -fx-text-fill: #3498db; /* Bleu */
-    -fx-font-weight: 700;
-}
-
-.section-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #2c3e50; /* Gris foncé */
-    -fx-letter-spacing: 1px;
+.button-danger:hover {
+    -fx-background-color: #E74C3C; /* Rouge plus foncé */
 }
 
 /* Style des champs de texte */
 .text-field, .date-picker, .comboBox {
     -fx-background-color: white;
-    -fx-border-color: #bdc3c7; /* Gris */
-    -fx-border-radius: 6px;
-    -fx-padding: 8px 12px;
-    -fx-font-size: 12px;
+    -fx-border-color: #D3D3D3; /* Gris clair */
+    -fx-border-radius: 6px; /* Bords plus arrondis */
+    -fx-padding: 6px 12px; /* Padding augmenté */
+    -fx-font-size: 12px; /* Taille de police légèrement augmentée */
     -fx-transition: all 0.3s ease-in-out;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
+    -fx-pref-width: 180px; /* Largeur préférée augmentée */
+    -fx-pref-height: 32px; /* Hauteur augmentée */
 }
 
-/* Animation sur focus */
 .text-field:focused, .date-picker:focused, .comboBox:focused {
-    -fx-border-color: #3498db; /* Bleu */
-    -fx-background-color: #ecf5ff; /* Arrière-plan léger bleu */
+    -fx-border-color: -fx-primary; /* Bleu vif */
+    -fx-background-color: #ECF4FF; /* Arrière-plan bleu très clair */
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 0, 3); /* Ombre plus marquée */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 0, 3);
+}
+
+/* Style des labels */
+.label {
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-font-size: 14px; /* Taille de police légèrement augmentée */
+    -fx-font-weight: 500;
+    -fx-transition: all 0.3s ease;
+}
+
+.dashboard-label {
+    -fx-font-size: 18px; /* Taille augmentée */
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-letter-spacing: 1px;
+}
+
+.dashboard-value {
+    -fx-font-size: 24px; /* Taille augmentée */
+    -fx-text-fill: -fx-primary; /* Bleu vif */
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.3), 3, 0, 0, 2);
+}
+
+.section-title {
+    -fx-font-size: 18px; /* Taille augmentée */
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-letter-spacing: 1px;
+    -fx-text-transform: uppercase;
 }
 
 /* Style des listes */
 .list-view, .comboBox {
     -fx-background-color: white;
-    -fx-border-color: #bdc3c7; /* Gris */
-    -fx-border-radius: 6px;
-    -fx-padding: 5px;
+    -fx-border-color: #D3D3D3; /* Gris clair */
+    -fx-border-radius: 6px; /* Bords plus arrondis */
+    -fx-padding: 8px; /* Padding augmenté */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
+    -fx-pref-width: 180px; /* Largeur augmentée */
+    -fx-pref-height: 120px; /* Hauteur augmentée */
 }
 
 /* Style des onglets */
 .tab-pane {
-    -fx-background-color: #f4f6f9; /* Gris clair */
+    -fx-background-color: -fx-light; /* Gris très clair */
 }
 
 .tab {
-    -fx-background-color: #3498db; /* Bleu */
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
+    -fx-background-color: #D3D3D3; /* Gris clair */
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-font-size: 14px; /* Taille de police légèrement augmentée */
     -fx-font-weight: 500;
+    -fx-padding: 8px 16px; /* Padding augmenté */
+    -fx-border-radius: 6px; /* Bords plus arrondis */
+    -fx-transition: all 0.3s ease-in-out;
 }
 
 .tab:selected {
-    -fx-background-color: #2980b9; /* Bleu foncé */
+    -fx-background-color: -fx-light; /* Gris très clair */
+    -fx-border-color: -fx-primary; /* Bleu vif */
+    -fx-border-width: 0 0 3 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
 }
 
 /* Style des icônes */
 .icon-medium {
-    -fx-fit-width: 18px; /* Largeur de l'icône */
-    -fx-fit-height: 18px; /* Hauteur de l'icône */
+    -fx-fit-width: 20px; /* Taille augmentée */
+    -fx-fit-height: 20px; /* Taille augmentée */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
 }
 
 /* Style des cartes */
 .card {
     -fx-background-color: white;
-    -fx-border-color: #bdc3c7; /* Gris */
-    -fx-border-radius: 6px;
-    -fx-padding: 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-border-color: #D3D3D3; /* Gris clair */
+    -fx-border-radius: 8px; /* Bords plus arrondis */
+    -fx-padding: 16px; /* Padding augmenté */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
     -fx-transition: all 0.3s ease;
 }
 
 .card-title {
-    -fx-font-size: 18px;
+    -fx-font-size: 18px; /* Taille augmentée */
     -fx-font-weight: 700;
-    -fx-text-fill: #2c3e50; /* Gris foncé */
-    -fx-margin-bottom: 8px;
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-letter-spacing: 1px;
+    -fx-text-transform: uppercase;
+    -fx-margin-bottom: 8px; /* Marge augmentée */
 }
 
 .card-description {
-    -fx-font-size: 13px;
-    -fx-text-fill: #7f8c8d; /* Gris */
-    -fx-margin-bottom: 10px;
+    -fx-font-size: 14px; /* Taille augmentée */
+    -fx-text-fill: #7F8C8D; /* Gris moyen */
+    -fx-margin-bottom: 12px; /* Marge augmentée */
+    -fx-line-spacing: 1.2;
 }
 
 .card-detail {
-    -fx-font-size: 12px;
-    -fx-text-fill: #7f8c8d; /* Gris */
+    -fx-font-size: 12px; /* Taille augmentée */
+    -fx-text-fill: #7F8C8D;
+    -fx-font-weight: 500;
 }
 
 .card:hover {
-    -fx-background-color: #f9f9f9; /* Gris très clair */
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
+    -fx-background-color: #F0F4F8; /* Gris très clair */
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
 }
 
 .card.selected {
-    -fx-border-color: #3498db; /* Bleu */
+    -fx-border-color: -fx-primary; /* Bleu vif */
     -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.3), 5, 0, 0, 3);
 }
 
 /* Animation de survol des éléments */
 .card:hover, .button:hover, .text-field:hover, .comboBox:hover {
     -fx-scale-x: 1.03;
     -fx-scale-y: 1.03;
-    -fx-background-color: #ecf5ff; /* Légère teinte de fond au survol */
+    -fx-background-color: #ECF4FF; /* Arrière-plan bleu très clair */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
+}
+
+.event-card {
+    -fx-background-color: white;
+    -fx-border-color: #D3D3D3;
+    -fx-border-radius: 8px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0, 0, 2);
+    -fx-transition: all 0.3s ease;
+}
+
+.event-card:hover {
+    -fx-background-color: #F0F4F8;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 3);
+}
+
+.event-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -fx-dark; /* Gris foncé */
+    -fx-letter-spacing: 1px;
+    -fx-text-transform: uppercase;
+    -fx-margin-bottom: 8px;
+}
+
+.event-card-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7F8C8D;
+    -fx-margin-bottom: 12px;
+    -fx-line-spacing: 1.2;
+}
+
+.event-card-detail {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7F8C8D;
+    -fx-font-weight: 500;
 }

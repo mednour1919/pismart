@@ -5,38 +5,43 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import tn.esprit.utils.QRCodeGenerator; // Assurez-vous d'importer QRCodeGenerator
+import tn.esprit.utils.QRCodeGenerator;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Générer le QR code
+    public void start(Stage primaryStage) {
         try {
-            String data = "https://example.com";
-            String filePath = "QRCode.png"; // Le chemin où vous voulez sauvegarder le QR code
-            QRCodeGenerator.generateQRCode(data, filePath); // Génère le QR code
+            // Générer le QR code
+            String data = "https://example.com"; // Données à encoder dans le QR code
+            String filePath = "QRCode.png";     // Chemin de sortie du fichier QR code
+            QRCodeGenerator.generateQRCode(data, filePath);
+            System.out.println("QR Code généré avec succès : " + filePath);
         } catch (Exception e) {
+            System.err.println("Erreur lors de la génération du QR Code : " + e.getMessage());
             e.printStackTrace();
         }
 
-        // Charger le fichier FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main.fxml"));
-        // Créer une scène à partir du fichier FXML
-        Parent root = loader.load();
+        try {
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Main.fxml"));
+            Parent root = loader.load();
 
-        // Créer une scène et l'ajouter à la fenêtre principale
-        Scene scene = new Scene(root, 520, 400);
+            // Créer la scène
+            Scene scene = new Scene(root, 800, 600); // Taille de la fenêtre
 
-        // Définir le titre de la fenêtre principale
-        primaryStage.setTitle("gestion des Signalements");
-
-        // Ajouter la scène à la fenêtre et afficher
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            // Configurer la fenêtre principale
+            primaryStage.setTitle("Gestion des Projets Urbains");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(true); // Permettre le redimensionnement de la fenêtre
+            primaryStage.show();
+        } catch (Exception e) {
+            System.err.println("Erreur lors du chargement de l'interface : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch(args); // Lancer l'application JavaFX
     }
 }

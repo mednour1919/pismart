@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import java.net.URL?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controller.UserController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <!-- Tableau de bord -->
+    <HBox spacing="20">
+        <VBox spacing="10">
+            <Label styleClass="dashboard-label" text="Nombre de projets" />
+            <Label fx:id="projetCountLabel" styleClass="dashboard-value" />
+            <TextField fx:id="searchField" promptText="Rechercher un projet..." />
+        </VBox>
+        <VBox spacing="10">
+            <Label styleClass="dashboard-label" text="Nombre de fournisseurs" />
+            <Label fx:id="fournisseurCountLabel" styleClass="dashboard-value" />
+            <Button onAction="#handleSearch" text="Rechercher">
+                <graphic>
+                    <ImageView styleClass="icon-medium">
+                        <Image url="@icons/search.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
+        </VBox>
+    </HBox>
+
+    <!-- Onglets -->
+    <TabPane>
+        <!-- Onglet Projets -->
+        <Tab text="Projets">
+            <VBox spacing="10">
+                <ScrollPane fitToWidth="true">
+                    <GridPane fx:id="cardGrid" hgap="10" vgap="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20" />
+                        </padding>
+                        <!-- Les cartes seront ajoutées dynamiquement ici -->
+                    </GridPane>
+                </ScrollPane>
+            </VBox>
+        </Tab>
+
+        <!-- Onglet Fournisseurs -->
+        <Tab text="Fournisseurs">
+            <VBox spacing="10">
+                <ScrollPane fitToWidth="true">
+                    <VBox fx:id="fournisseurCardContainer" spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20" />
+                        </padding>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+        </Tab>
+
+        <!-- Onglet Météo -->
+        <Tab text="Météo">
+            <VBox spacing="10">
+                <Label styleClass="section-title" text="Météo en Tunisie" />
+                <HBox spacing="10">
+                    <TextField fx:id="cityField" promptText="Entrez une ville (ex: Tunis)" />
+                    <Button onAction="#handleGetWeather" text="Obtenir la météo" />
+                </HBox>
+                <Label fx:id="weatherLabel" styleClass="weather-info" />
+            </VBox>
+        </Tab>
+
+        <!-- Onglet Carte -->
+        <Tab text="Carte">
+            <VBox spacing="10">
+                <WebView fx:id="mapView" prefHeight="600" prefWidth="800" />
+                <Button onAction="#afficherProjetsSurCarte" text="Afficher les projets sur la carte" />
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>
