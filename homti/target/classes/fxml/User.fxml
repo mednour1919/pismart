@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1"
+      fx:controller="tn.esprit.controllers.UserController" stylesheets="@Main.css">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <!-- Tab 1: Consulter les Stations -->
+        <Tab closable="false" text="Consulter les Stations">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <!-- Section de recherche -->
+                    <VBox spacing="10">
+                        <TextField fx:id="searchZoneField" promptText="Rechercher par zone" />
+                        <Button onAction="#handleSearchByZone" text="Rechercher" />
+                        <FlowPane fx:id="stationCardView" hgap="10" prefHeight="300" prefWidth="400" vgap="10" />
+                    </VBox>
+
+                    <!-- Section de détails et carte -->
+                    <VBox spacing="10">
+
+                        <!-- Carte de localisation -->
+                        <Label text="Localisation de la Station" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <AnchorPane>
+                            <WebView fx:id="mapView" prefHeight="400" prefWidth="500"/>
+                        </AnchorPane>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <!-- Tab 2: Gérer les Réservations -->
+        <Tab closable="false" text="Gérer les Réservations">
+            <VBox spacing="10">
+                <HBox spacing="10">
+                    <!-- Section de recherche -->
+                    <VBox spacing="10">
+                        <DatePicker fx:id="searchDateField" promptText="Rechercher par date" />
+                        <Button onAction="#handleSearchByDate" text="Rechercher" />
+                        <FlowPane fx:id="reservationCardView" hgap="10" prefHeight="300" prefWidth="400" vgap="10" />
+                    </VBox>
+
+                    <!-- Section de détails des réservations -->
+                    <VBox spacing="10">
+                        <Label text="Détails de la Réservation" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <TextField fx:id="placeField" promptText="Numéro de place" />
+                        <DatePicker fx:id="datePicker" promptText="Date" />
+                        <TextField fx:id="timeField" promptText="Heure" />
+                        <TextField fx:id="brandField" promptText="Marque de la voiture" />
+                        <ComboBox fx:id="stationComboBox" promptText="Sélectionner une station" />
+
+                        <!-- Boutons pour gérer les réservations -->
+                        <HBox spacing="10">
+                            <Button onAction="#handleAddReservation" text="Ajouter" />
+                            <Button onAction="#handleUpdateReservation" text="Modifier" />
+                            <Button onAction="#handleDeleteReservation" text="Supprimer" />
+                            <Button onAction="#handleClearReservation" text="Effacer" />
+                        </HBox>
+
+                        <!-- QR Code -->
+                        <Label text="QR Code de la Réservation" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <ImageView fx:id="qrCodeImageView" fitHeight="102.0" fitWidth="76.0" />
+                    </VBox>
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

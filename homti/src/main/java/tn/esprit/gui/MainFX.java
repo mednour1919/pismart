@@ -11,10 +11,10 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            primaryStage.setTitle("Parking Management System");
+            primaryStage.setTitle("STATIONS HOUMTI");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {

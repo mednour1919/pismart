@@ -16,7 +16,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.FileSystems;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
+import java.awt.*;
+import java.awt.TrayIcon.MessageType;
+import dorkbox.notify.Notify;
+import dorkbox.notify.Pos;
 
 public class ReservationService implements IReservationService {
 
@@ -30,9 +38,22 @@ public class ReservationService implements IReservationService {
             pst.setDate(2, reservation.getDate_Reservation());
             pst.setString(3, reservation.getTemps());
             pst.setString(4, reservation.getMarque());
-            pst.setInt(5, reservation.getid_station()); // Association à la station
+            pst.setInt(5, reservation.getid_station());
 
             pst.executeUpdate();
+
+            Notify.create()
+                .title("🎯 Reservation Confirmed!")
+                .text("Spot: " + reservation.getNumPLACE() + 
+                      "\nDate: " + formatDate(reservation.getDate_Reservation()) +
+                      "\nTime: " + reservation.getTemps() +
+                      "\nVehicle: " + reservation.getMarque())
+                .position(Pos.BOTTOM_RIGHT)
+                .darkStyle()
+                .hideAfter(6000)
+                .shake(500,3)
+                .showInformation();
+            
             System.out.println("Reservation added successfully!");
         } catch (SQLException e) {
             System.err.println("Error adding reservation: " + e.getMessage());
@@ -163,7 +184,7 @@ public class ReservationService implements IReservationService {
     @Override
     public List<Reservation> findAll() {
         List<Reservation> reservations = new ArrayList<>();
-        // Mettre à jour la requête SQL pour inclure l'ID de la station
+
         String sql = "SELECT r.idReservation, r.numPLACE, r.date_Reservation, r.temps, r.marque, s.nomStation, r.idStation " +
                 "FROM reservation r " +
                 "JOIN station s ON r.idStation = s.id_station";
@@ -173,7 +194,7 @@ public class ReservationService implements IReservationService {
              ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
-                // Passer tous les arguments nécessaires au constructeur
+
                 reservations.add(new Reservation(
                         rs.getInt("idReservation"),
                         rs.getString("numPLACE"),
@@ -190,6 +211,33 @@ public class ReservationService implements IReservationService {
         return reservations;
     }
 
+    private void showSystemNotification(String title, String message) {
+        try {
+            if (SystemTray.isSupported()) {
+                SystemTray tray = SystemTray.getSystemTray();
+                Image image = Toolkit.getDefaultToolkit().createImage("src/main/resources/icon.png");
+                TrayIcon trayIcon = new TrayIcon(image, "Reservation");
+                trayIcon.setImageAutoSize(true);
+                tray.add(trayIcon);
+                trayIcon.displayMessage(title, message, MessageType.INFO);
+                // Remove the tray icon after a delay
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(5000);
+                        tray.remove(trayIcon);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    private String formatDate(Date sqlDate) {
+        return sqlDate.toLocalDate()
+            .format(java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    }
 
 }

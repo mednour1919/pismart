@@ -35,6 +35,16 @@
                     </VBox>
 
                     <VBox spacing="10">
+                        <Label text="Statistiques des Stations par Zone" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <BarChart fx:id="stationChart" prefHeight="300" prefWidth="500">
+                            <xAxis>
+                                <CategoryAxis fx:id="zoneAxis" label="Zones"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="countAxis" label="Nombre de stations"/>
+                            </yAxis>
+                        </BarChart>
+
                         <Label text="Station Details" />
                         <TextField fx:id="stationNameField" promptText="Station Name" />
                         <TextField fx:id="capacityField" promptText="Capacity" />
@@ -49,7 +59,7 @@
                             <Button onAction="#handleUpdateStation" text="Update" />
                             <Button onAction="#handleDeleteStation" text="Delete" />
                             <AnchorPane>
-                                <WebView fx:id="mapView" prefHeight="500" prefWidth="600"/>
+                                <WebView fx:id="mapView" prefHeight="500" prefWidth="500"/>
                             </AnchorPane>
                         </HBox>
                     </VBox>
@@ -85,7 +95,6 @@
                     </VBox>
                 </HBox>
 
-                <!-- Ajout du BarChart pour les statistiques -->
                 <Label text="Statistiques des Réservations" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
                 <BarChart fx:id="reservationChart" prefHeight="300" prefWidth="500">
                     <xAxis>

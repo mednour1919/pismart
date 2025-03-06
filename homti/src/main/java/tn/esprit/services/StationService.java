@@ -9,7 +9,7 @@ import java.util.List;
 
 public class StationService {
 
-    // Méthode pour ajouter une station
+
     public void addStation(Station station) {
         String sql = "INSERT INTO station (nomStation, capacite, zone, status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
@@ -40,7 +40,7 @@ public class StationService {
         }
     }
 
-    // Méthode pour supprimer une station
+
     public void deleteStation(int id) {
         String sql = "DELETE FROM station WHERE id_station=?";
         try (PreparedStatement pst = DataBaseConnection.getConnection().prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class StationService {
         }
     }
 
-    // Méthode pour récupérer toutes les stations
+
     public List<Station> findAll() {
         List<Station> stations = new ArrayList<>();
         String sql = "SELECT * FROM station";
@@ -73,7 +73,6 @@ public class StationService {
         return stations;
     }
 
-    // Méthode pour récupérer les stations par zone
     public List<Station> findByZone(String zone) {
         List<Station> stations = new ArrayList<>();
         String query = "SELECT * FROM station WHERE zone = ?";

@@ -11,7 +11,7 @@ public class Reservation {
     private int idStation;
     private String nomStation; // Ajout de l'attribut pour stocker le nom de la station
 
-    // Constructeur mis à jour
+
     public Reservation(int idReservation, String numPLACE, Date date_Reservation,
                        String temps, String marque, String nomStation, int idStation) {
         this.idReservation = idReservation;
@@ -23,7 +23,7 @@ public class Reservation {
         this.nomStation = nomStation;
     }
 
-    // Getters et Setters
+
     public int getIdReservation() {
         return idReservation;
     }

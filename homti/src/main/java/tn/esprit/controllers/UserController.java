@@ -37,44 +37,8 @@ import javafx.scene.web.WebEngine;
 import org.controlsfx.control.Notifications;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
-import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
-import javafx.scene.control.TextField;
-import java.awt.TrayIcon.MessageType;
-
-
-
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.AWTException;
-import java.awt.Toolkit;
-
-import javafx.scene.image.Image;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.AWTException;
-
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import java.util.Map;
-import java.util.HashMap;
-
-import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-
-
-
-
-
-public class MainController {
+public class UserController {
 
     @FXML
     private FlowPane stationCardView;
@@ -106,21 +70,8 @@ public class MainController {
     @FXML
     private WebView mapView;
 
-
     @FXML
-    private BarChart<String, Number> reservationChart;
-    @FXML
-    private CategoryAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
-
-    @FXML
-    private BarChart<String, Number> stationChart;
-    @FXML
-    private CategoryAxis zoneAxis;
-    @FXML
-    private NumberAxis countAxis;
-
+    private ImageView qrCodeImageView;
 
     private final StationService stationService = new StationService();
     private final ReservationService reservationService = new ReservationService();
@@ -133,9 +84,6 @@ public class MainController {
         refreshReservationList();
         loadStationComboBox();
         loadMap();
-        loadReservationStatistics();
-        loadStationStatistics();
-
     }
 
     private void loadStationComboBox() {
@@ -148,22 +96,6 @@ public class MainController {
         String mapUrl = "https://www.google.com/maps"; // URL de Google Maps
         webEngine.load(mapUrl);
     }
-
-
-    @FXML
-    private void handleAddStation() {
-        try {
-            Station station = new Station(0, stationNameField.getText(), Integer.parseInt(capacityField.getText()), zoneField.getText(), statusField.getText());
-            stationService.addStation(station);
-            refreshStationList();
-            loadStationComboBox();
-            clearStationFields();
-            showAlert("Success", "Station added successfully!", Alert.AlertType.INFORMATION);
-        } catch (Exception e) {
-            showAlert("Error", "Error adding station: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
 
     @FXML
     private void handleAddReservation() {
@@ -186,7 +118,6 @@ public class MainController {
 
             reservationService.addReservation(reservation);
 
-
             String reservationData = "Reservation Details:\n" +
                     "Place: " + reservation.getNumPLACE() + "\n" +
                     "Date: " + reservation.getDate_Reservation() + "\n" +
@@ -199,7 +130,6 @@ public class MainController {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-
 
             generateQRCode(reservationData, qrCodePath);
 
@@ -215,7 +145,6 @@ public class MainController {
         }
     }
 
-
     private void refreshStationList() {
         List<Station> stations = stationService.findAll();
         updateStationCardView(stations);
@@ -224,7 +153,6 @@ public class MainController {
     private void refreshReservationList() {
         List<Reservation> reservations = reservationService.findAll();
         updateReservationCardView(reservations);
-
     }
 
     private void updateStationCardView(List<Station> stations) {
@@ -267,12 +195,10 @@ public class MainController {
                 datePicker.setValue(reservation.getDate_Reservation().toLocalDate());
                 timeField.setText(reservation.getTemps());
                 brandField.setText(reservation.getMarque());
-                //stationComboBox.setValue(stationService.findById(reservation.getIdStation()));
             });
             reservationCardView.getChildren().add(reservationCard);
         }
     }
-
 
     private void clearReservationFields() {
         placeField.clear();
@@ -302,60 +228,6 @@ public class MainController {
                 .filter(station -> station.getZone().equalsIgnoreCase(zone))
                 .collect(Collectors.toList());
         updateStationCardView(filteredStations);
-    }
-
-
-    @FXML
-    private void handleUpdateStation() {
-        if (selectedStation == null) {
-            showAlert("Error", "Please select a station to update.", Alert.AlertType.WARNING);
-            return;
-        }
-
-        try {
-            selectedStation.setNomStation(stationNameField.getText());
-            selectedStation.setCapacite(Integer.parseInt(capacityField.getText()));
-            selectedStation.setZone(zoneField.getText());
-
-            String status = statusField.getText();
-            if (status == null || status.trim().isEmpty()) {
-                showAlert("Error", "Status cannot be empty.", Alert.AlertType.WARNING);
-                return;
-            }
-
-            selectedStation.setStatus(status);
-            stationService.updateStation(selectedStation);
-
-            refreshStationList();
-            loadStationComboBox();
-            clearStationFields();
-
-
-            Notifications.create()
-                    .title("Station Updated")
-                    .text("Station " + selectedStation.getNomStation() + " updated successfully!")
-                    .position(Pos.BOTTOM_RIGHT)
-                    .hideAfter(Duration.seconds(5))
-                    .showInformation();
-
-            showAlert("Success", "Station updated successfully!", Alert.AlertType.INFORMATION);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "Error updating station: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    private void handleDeleteStation() {
-        if (selectedStation == null) {
-            showAlert("Error", "Please select a station to delete.", Alert.AlertType.WARNING);
-            return;
-        }
-        stationService.deleteStation(selectedStation.getIdStation());
-        refreshStationList();
-        loadStationComboBox();
-        clearStationFields();
-        showAlert("Success", "Station deleted successfully!", Alert.AlertType.INFORMATION);
     }
 
     @FXML
@@ -406,17 +278,13 @@ public class MainController {
 
     @FXML
     private void handleClearReservation() {
-
         placeField.clear();
         datePicker.setValue(null);
         timeField.clear();
         brandField.clear();
         stationComboBox.setValue(null);
-
-
         selectedReservation = null;
     }
-
 
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -443,22 +311,6 @@ public class MainController {
         }
     }
 
-    public static void main(String[] args) {
-
-        String reservationData = "Reservation ID: 123";
-        String qrCodePath = "QR_Codes/reservation_123.png";
-
-        File directory = new File("QR_Codes");
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-        generateQRCode(reservationData, qrCodePath);
-    }
-
-    @FXML
-    private ImageView qrCodeImageView;
-
     public void displayQRCode(String filePath) {
         File file = new File(filePath);
         if (file.exists()) {
@@ -468,46 +320,4 @@ public class MainController {
             System.out.println("QR Code file not found at: " + filePath);
         }
     }
-
-    private void loadReservationStatistics() {
-        List<Reservation> reservations = reservationService.findAll();
-        Map<String, Integer> stationStats = new HashMap<>();
-
-        for (Reservation reservation : reservations) {
-            String station = reservation.getNomStation();
-            stationStats.put(station, stationStats.getOrDefault(station, 0) + 1);
-        }
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Réservations par station");
-
-        for (Map.Entry<String, Integer> entry : stationStats.entrySet()) {
-            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
-        }
-
-        reservationChart.getData().clear();
-        reservationChart.getData().add(series);
-    }
-    private void loadStationStatistics() {
-        stationChart.getData().clear(); // Nettoyer l'ancien graphique
-
-        List<Station> stations = stationService.findAll(); // Récupérer toutes les stations
-
-        // Compter les stations par zone
-        Map<String, Integer> zoneCounts = new HashMap<>();
-        for (Station station : stations) {
-            zoneCounts.put(station.getZone(), zoneCounts.getOrDefault(station.getZone(), 0) + 1);
-        }
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Stations par Zone");
-
-        for (Map.Entry<String, Integer> entry : zoneCounts.entrySet()) {
-            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
-        }
-
-        stationChart.getData().add(series);
-    }
-
-
-    }
+}
