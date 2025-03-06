@@ -76,7 +76,7 @@ public class SignupController {
     private void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Scene scene = new Scene(loader.load(), 400, 300);
+            Scene scene = new Scene(loader.load(), 500, 400);
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {

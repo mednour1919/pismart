@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
+
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,10 +33,9 @@ public class LoginView {
             showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields must be filled.");
             return;
         }
-
         if (validateUser(email, password)) {
             showAlert(Alert.AlertType.INFORMATION, "Success", "Login successful!");
-            switchScene("/com/example/demo2/user-list-view.fxml"); // Redirect to User List
+            switchScene("/com/example/demo2/captcha.fxml"); // Switch to CAPTCHA challenge
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Invalid email or password.");
         }
@@ -63,7 +64,7 @@ public class LoginView {
     private void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Scene scene = new Scene(loader.load(), 400, 300);
+            Scene scene = new Scene(loader.load(), 600, 500);
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {
@@ -78,5 +79,6 @@ public class LoginView {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 
 }

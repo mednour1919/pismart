@@ -10,11 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserListController {
 
@@ -27,13 +31,15 @@ public class UserListController {
     @FXML
     private TableColumn<User, String> emailColumn;
 
+    @FXML
+    private TextField searchField; // Make sure this is added in your FXML
+
     private ObservableList<User> users = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-
         loadUsers();
     }
 
@@ -82,6 +88,30 @@ public class UserListController {
         }
     }
 
+    // Existing search method
+    @FXML
+    private void handleSearch() {
+        String searchText = searchField.getText().toLowerCase();
+        if (searchText.isEmpty()) {
+            userTable.setItems(users);
+        } else {
+            List<User> filteredUsers = users.stream()
+                    .filter(user -> user.getUsername().toLowerCase().contains(searchText) ||
+                            user.getEmail().toLowerCase().contains(searchText))
+                    .collect(Collectors.toList());
+            userTable.setItems(FXCollections.observableArrayList(filteredUsers));
+        }
+    }
+
+    // New sort method using Java Streams
+    @FXML
+    private void handleSort() {
+        List<User> sortedUsers = users.stream()
+                .sorted(Comparator.comparing(User::getUsername, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList());
+        userTable.setItems(FXCollections.observableArrayList(sortedUsers));
+    }
+
     @FXML
     private void handleLogout() {
         switchScene("login-view.fxml");
@@ -90,7 +120,7 @@ public class UserListController {
     private void switchScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Scene scene = new Scene(loader.load(), 400, 300);
+            Scene scene = new Scene(loader.load(), 800, 800);
             Stage stage = (Stage) userTable.getScene().getWindow();
             stage.setScene(scene);
         } catch (IOException e) {
