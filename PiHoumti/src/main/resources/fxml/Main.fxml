@@ -12,117 +12,211 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="598.0" prefWidth="903.0" stylesheets="@../Cssfile/Main.css"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="tn.esprit.Controller.MainController">
+<AnchorPane prefHeight="598.0" prefWidth="903.0" stylesheets="@../Cssfile/Main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.MainController">
 
-    <VBox styleClass="main-container" AnchorPane.bottomAnchor="0"
-          AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+   <VBox prefHeight="629.0" prefWidth="941.0" styleClass="main-container" AnchorPane.bottomAnchor="-31.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="0">
 
-        <HBox prefHeight="67.0" prefWidth="1084.0" spacing="20" styleClass="header-box">
-            <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
-                <image>
-                    <Image url="@houm4 - Copie.png" />
-                </image>
-            </ImageView>
-            <VBox spacing="5">
-                <Label styleClass="header-title" text="Houmti" />
-                <Label styleClass="header-subtitle" text="Gestion Intelligente des Déchets Urbains"
-                       style="-fx-text-fill: white;"/>
-            </VBox>
-        </HBox>
+      <!-- Header -->
+      <HBox prefHeight="67.0" prefWidth="1084.0" spacing="20" styleClass="header-box">
+         <ImageView fitHeight="70.0" fitWidth="111.0" preserveRatio="true">
+            <image>
+               <Image url="@houm4 - Copie.png" />
+            </image>
+         </ImageView>
+         <VBox spacing="5">
+            <Label styleClass="header-title" text="Houmti" />
+            <Label style="-fx-text-fill: white;" styleClass="header-subtitle" text="Gestion Intelligente des Déchets Urbains" />
+         </VBox>
+      </HBox>
 
-        <TabPane VBox.vgrow="ALWAYS">
+      <!-- Contenu principal avec les onglets -->
+      <TabPane VBox.vgrow="ALWAYS">
 
-            <Tab closable="false" text="Zone Collecte">
-                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
-                    <HBox spacing="20" styleClass="content-box">
-                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
-                            <VBox fx:id="stationVBox" styleClass="card-container" />
-                        </ScrollPane>
+         <!-- Onglet Zone Collecte -->
+         <Tab closable="false" text="Zone Collecte">
+            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+               <HBox spacing="20" styleClass="content-box">
+                  <!-- Conteneur des cartes de zone de collecte -->
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="616.0" prefWidth="460.0" styleClass="card-scroll">
+                     <VBox fx:id="stationVBox" styleClass="card-container" />
+                  </ScrollPane>
 
-                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
-                            <Label styleClass="section-title" text="Détails Zone" />
-                            <TextField fx:id="searchZoneField" promptText="Rechercher une zone..." styleClass="search-field"/>
-                            <TextField fx:id="stationNameField" promptText="Nom zone" />
-                            <TextField fx:id="capacityField" promptText="Population" />
-                            <TextField fx:id="zoneField" promptText="Temps de collecte" />
+                  <!-- Formulaire de gestion des zones de collecte -->
+                  <VBox prefHeight="538.0" prefWidth="446.0" spacing="15" styleClass="form-container">
+                     <!-- Titre et bouton de rafraîchissement -->
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label styleClass="section-title" text="Détails Zone" />
+                        <Button fx:id="refreshZoneButton" onAction="#refreshData" styleClass="refresh-button">
+                           <graphic>
+                              <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../fxml/relo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </HBox>
 
-                            <HBox spacing="10" styleClass="button-container">
-                                <Button onAction="#handleAddZone" text="Ajouter" />
-                                <Button onAction="#handleUpdateZone" text="Modifier" />
-                                <Button onAction="#handleDeleteZone" styleClass="button-danger" text="Supprimer" />
-                                <Button onAction="#handleClearZone" text="Vider" />
-                            </HBox>
+                     <TextField fx:id="searchZoneField" promptText="Rechercher une zone..." styleClass="search-field" />
+                     <TextField fx:id="stationNameField" promptText="Nom zone" />
+                     <TextField fx:id="capacityField" promptText="Population" />
+                     <TextField fx:id="zoneField" promptText="Temps de collecte" />
 
-                            <HBox alignment="CENTER">
-                                <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
-                                    <image>
-                                        <Image url="@localisation-sur-la-carte.png" />
-                                    </image>
-                                </ImageView>
-                            </HBox>
+                     <!-- HBox pour les boutons CRUD -->
+                     <HBox spacing="10" styleClass="button-container">
+                        <Button onAction="#handleAddZone" text="Ajouter" />
+                        <Button onAction="#handleUpdateZone" text="Modifier" />
+                        <Button onAction="#handleDeleteZone" styleClass="button-danger" text="Supprimer" />
+                        <Button onAction="#handleClearZone" text="Vider" />
+                     </HBox>
 
-                            <VBox styleClass="info-box" spacing="5">
-                                <Label styleClass="info-title" text="Optimisation des Collectes" />
-                                <Label styleClass="info-text" text="• Surveillance en temps réel des niveaux de remplissage" />
-                                <Label styleClass="info-text" text="• Planification dynamique des tournées" />
-                                <Label styleClass="info-text" text="• Analyse prédictive des zones critiques" />
-                            </VBox>
-                        </VBox>
-                    </HBox>
-                </ScrollPane>
-            </Tab>
+                     <HBox spacing="10" styleClass="button-container" stylesheets="@../Cssfile/Main.css">
+                        <!-- Bouton Exporter avec une image -->
+                        <Button fx:id="exportButton" onAction="#handleExportButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Cssfile/explo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
 
+                        <!-- Bouton Importer avec une image -->
+                        <Button fx:id="importButton" onAction="#handleImportButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Cssfile/impo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </HBox>
 
-            <Tab closable="false" text="Camion">
-                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
-                    <HBox spacing="20" styleClass="content-box">
-                        <ScrollPane hbarPolicy="NEVER" prefWidth="350" styleClass="card-scroll">
-                            <VBox fx:id="reservationVBox" styleClass="card-container" />
-                        </ScrollPane>
+                     <HBox alignment="CENTER">
+                        <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
+                           <image>
+                              <Image url="@localisation-sur-la-carte.png" />
+                           </image>
+                        </ImageView>
+                     </HBox>
 
-                        <VBox spacing="15" styleClass="form-container" prefWidth="400">
-                            <Label styleClass="section-title" text="Gestion Camions" />
-                            <TextField fx:id="searchCamionField" promptText="Rechercher un camion..." styleClass="search-field"/>
+                     <VBox spacing="5" styleClass="info-box">
+                        <Label styleClass="info-title" text="Optimisation des Collectes" />
+                        <Label styleClass="info-text" text="• Surveillance en temps réel des niveaux de remplissage" />
+                        <Label styleClass="info-text" text="• Planification dynamique des tournées" />
+                        <Label styleClass="info-text" text="• Analyse prédictive des zones critiques" />
+                     </VBox>
+                  </VBox>
+               </HBox>
+            </ScrollPane>
+         </Tab>
 
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Button text="Choisir une image" onAction="#handleImageUpload" styleClass="upload-button"/>
-                                <Button text="Supprimer l'image" onAction="#handleDeleteImage" styleClass="button-danger"/>
-                                <ImageView fx:id="camionImageView" fitWidth="150" fitHeight="100" preserveRatio="true" styleClass="image-preview"/>
-                            </HBox>
+         <!-- Onglet Camion -->
+         <Tab closable="false" text="Camion">
+            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+               <HBox spacing="20" styleClass="content-box">
+                  <!-- Conteneur des cartes de camion -->
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="702.0" prefWidth="481.0" styleClass="card-scroll">
+                     <VBox fx:id="reservationVBox" styleClass="card-container">
+                        <!-- Exemple de carte de camion -->
+                        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="card-view">
+                           <!-- Image du camion -->
+                           <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                              <image>
+                                 <Image url="@5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+                              </image>
+                           </ImageView>
+                           <!-- Texte à côté de l'image -->
+                           <VBox spacing="8" styleClass="text-container">
+                              <Label styleClass="info-title" text="Type de camion" />
+                              <Label styleClass="info-text" text="Capacité: 500 kg" />
+                              <Label styleClass="info-text" text="Statut: Actif" />
+                           </VBox>
+                        </HBox>
+                     </VBox>
+                  </ScrollPane>
 
-                            <TextField fx:id="placeField" promptText="Type camion" />
-                            <TextField fx:id="timeField" promptText="Capacité" />
-                            <TextField fx:id="placeField1" promptText="Statut" />
-                            <TextField fx:id="brandField" promptText="ID Zone" />
+                  <!-- Formulaire de gestion des camions -->
+                  <VBox prefHeight="702.0" prefWidth="473.0" spacing="15" styleClass="form-container">
+                     <!-- Titre et bouton de rafraîchissement -->
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label styleClass="section-title" text="Gestion Camions" />
+                        <Button fx:id="refreshCamionButton" onAction="#refreshData" styleClass="refresh-button">
+                           <graphic>
+                              <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../fxml/relo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </HBox>
 
-                            <HBox spacing="10" styleClass="button-container">
-                                <Button onAction="#handleAddCamion" text="Ajouter" />
-                                <Button onAction="#handleUpdateCamion" text="Modifier" />
-                                <Button onAction="#handleDeleteCamion" styleClass="button-danger" text="Supprimer" />
-                                <Button onAction="#handleClearCamion" text="Vider" />
-                            </HBox>
+                     <TextField fx:id="searchCamionField" promptText="Rechercher un camion..." styleClass="search-field" />
 
-                            <HBox alignment="CENTER">
-                                <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </HBox>
+                     <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Button onAction="#handleImageUpload" styleClass="upload-button" text="Choisir une image" />
+                        <Button onAction="#handleDeleteImage" styleClass="button-danger" text="Supprimer l'image" />
+                        <ImageView fx:id="camionImageView" fitHeight="100" fitWidth="150" preserveRatio="true" styleClass="image-preview" />
+                     </HBox>
 
-                            <VBox styleClass="info-box" spacing="5">
-                                <Label styleClass="info-title" text="Suivi des Camions en Temps Réel" />
-                                <Label styleClass="info-text" text="• Géolocalisation précise des véhicules" />
-                                <Label styleClass="info-text" text="• Monitoring des performances en direct" />
-                                <Label styleClass="info-text" text="• Alertes maintenance prédictive" />
-                            </VBox>
-                        </VBox>
-                    </HBox>
-                </ScrollPane>
-            </Tab>
-        </TabPane>
-    </VBox>
+                     <TextField fx:id="placeField" promptText="Type camion" />
+                     <TextField fx:id="timeField" promptText="Capacité" />
+                     <TextField fx:id="placeField1" promptText="Statut" />
+                     <TextField fx:id="brandField" promptText=" Zone" />
+
+                     <HBox spacing="10" styleClass="button-container">
+                        <Button onAction="#handleAddCamion" text="Ajouter" />
+                        <Button onAction="#handleUpdateCamion" text="Modifier" />
+                        <Button onAction="#handleDeleteCamion" styleClass="button-danger" text="Supprimer" />
+                        <Button onAction="#handleClearCamion" text="Vider" />
+                     </HBox>
+
+                     <!-- Ajout des boutons d'exportation et d'importation -->
+                     <HBox spacing="10" styleClass="button-container" stylesheets="@../Cssfile/Main.css">
+                        <!-- Bouton Exporter avec une image -->
+                        <Button fx:id="exportCamionButton" onAction="#handleExportCamionButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Cssfile/explo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <!-- Bouton Importer avec une image -->
+                        <Button fx:id="importCamionButton" onAction="#handleImportCamionButtonAction">
+                           <graphic>
+                              <ImageView fitHeight="50" fitWidth="50" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Cssfile/impo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </HBox>
+
+                     <HBox alignment="CENTER">
+                        <ImageView fitHeight="90" fitWidth="91" preserveRatio="true">
+                           <image>
+                              <Image url="@5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+                           </image>
+                        </ImageView>
+                     </HBox>
+
+                     <VBox spacing="5" styleClass="info-box">
+                        <Label styleClass="info-title" text="Suivi des Camions en Temps Réel" />
+                        <Label styleClass="info-text" text="• Géolocalisation précise des véhicules" />
+                        <Label styleClass="info-text" text="• Monitoring des performances en direct" />
+                        <Label styleClass="info-text" text="• Alertes maintenance prédictive" />
+                     </VBox>
+                  </VBox>
+               </HBox>
+            </ScrollPane>
+         </Tab>
+      </TabPane>
+   </VBox>
 </AnchorPane>

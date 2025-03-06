@@ -9,14 +9,15 @@
 
 .header-box {
     -fx-background-color: linear-gradient(to right, -fx-primary, -fx-dark);
-    -fx-padding: 20 40;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 4, 4);
+    -fx-padding: 15 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 3, 3);
 }
 
 .header-title {
     -fx-text-fill: -fx-light;
     -fx-font-size: 32px;
-    -fx-font-weight: 800;
+    -fx-font-weight: 250;
+    -fx-padding: 0 0 8px 0;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 2, 2);
     -fx-font-family: 'Arial Rounded MT Bold';
 }
@@ -30,7 +31,8 @@
     -fx-background-color: #bdc3c7;
     -fx-font-weight: bold;
     -fx-text-fill: -fx-dark;
-    -fx-padding: 12 25;
+    -fx-padding: 10 20;
+    -fx-font-size: 13px;
 }
 
 .tab:selected {
@@ -40,8 +42,8 @@
 }
 
 .card-container {
-    -fx-spacing: 20;
-    -fx-padding: 10;
+    -fx-spacing: 12;
+    -fx-padding: 8;
     -fx-alignment: center;
     -fx-wrap-text: true;
 }
@@ -49,20 +51,149 @@
 .card-view {
     -fx-background-color: white;
     -fx-background-radius: 10;
-    -fx-padding: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 2, 2);
+    -fx-padding: 12px; /* Espacement interne */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 2, 2);
     -fx-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    -fx-perspective: 1000;
-    -fx-pref-width: 300;
-    -fx-max-width: 350;
-    -fx-min-width: 250;
+    -fx-pref-width: 250px;
+    -fx-max-width: 350px;
+    -fx-min-width: 250px;
+    -fx-spacing: 8px;
 }
 
 .card-view:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 4, 4);
-    -fx-translate-y: -5;
-    -fx-rotate: 1.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 12, 0, 4, 4);
+    -fx-translate-y: -5px;
+    -fx-rotate: 1.5deg;
 }
+/*testt card view*/
+/* Style pour les cartes de zone de collecte */
+#stationVBox .card-view {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-border-color: #3498db; /* Bordure bleue */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px; /* Espacement interne */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 2, 2);
+    -fx-spacing: 10px; /* Espacement entre les éléments */
+}
+
+#stationVBox .card-view:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.3), 15, 0, 4, 4); /* Ombre bleue au survol */
+    -fx-translate-y: -5px; /* Légère élévation */
+}
+
+/* Style pour les labels dans les cartes de zone */
+#stationVBox .card-view Label {
+    -fx-text-fill: #2c3e50; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de police */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-wrap-text: true; /* Retour à la ligne automatique */
+    -fx-padding: 5px 0; /* Espacement vertical entre les labels */
+}
+
+#stationVBox .card-view .info-title {
+    -fx-font-size: 16px; /* Taille de police plus grande pour le titre */
+    -fx-text-fill: #3498db; /* Couleur du titre */
+    -fx-font-weight: 800; /* Texte très gras */
+    -fx-padding: 0 0 10px 0; /* Espacement en bas */
+}
+
+#stationVBox .card-view .info-text {
+    -fx-font-size: 12px; /* Taille de police plus petite pour le texte */
+    -fx-text-fill: #34495e; /* Couleur du texte */
+    -fx-padding: 2px 0; /* Espacement vertical entre les lignes */
+}
+
+/* Icône de localisation pour les zones de collecte */
+#stationVBox .card-view .location-icon {
+    -fx-fit-width: 50px; /* Taille de l'icône */
+    -fx-fit-height: 50px;
+    -fx-preserve-ratio: true;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 2, 2);
+}
+
+
+
+/* Style pour les cartes de camion */
+
+/* Style pour les cartes de camion */
+#reservationVBox .card-view {
+    -fx-background-color: #ffffff; /* Fond blanc */
+    -fx-background-radius: 10px; /* Coins arrondis */
+    -fx-border-color: #3498db; /* Bordure bleue */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 12px; /* Espacement interne */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 2, 2);
+    -fx-spacing: 8px; /* Espacement entre l'image et le texte */
+    -fx-alignment: center-left; /* Alignement à gauche */
+}
+
+#reservationVBox .card-view:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(231, 76, 60, 0.3), 15, 0, 4, 4); /* Ombre rouge au survol */
+    -fx-translate-y: -5px; /* Légère élévation */
+}
+
+/* Style pour le conteneur de texte */
+#reservationVBox .text-container {
+    -fx-alignment: center-left; /* Alignement du texte à gauche */
+    -fx-spacing: 8px; /* Espacement entre les labels */
+}
+
+/* Style pour les labels dans les cartes de camion */
+#reservationVBox .card-view Label {
+    -fx-text-fill: #2c3e50; /* Couleur du texte */
+    -fx-font-size: 14px; /* Taille de police */
+    -fx-font-weight: bold; /* Texte en gras */
+    -fx-wrap-text: true; /* Retour à la ligne automatique */
+    -fx-padding: 3px 0; /* Espacement vertical entre les labels */
+}
+
+#reservationVBox .card-view .info-title {
+    -fx-font-size: 16px; /* Taille de police plus grande pour le titre */
+    -fx-text-fill: #e74c3c; /* Couleur du titre */
+    -fx-font-weight: 800; /* Texte très gras */
+    -fx-padding: 0 0 8px 0; /* Espacement en bas */
+}
+
+#reservationVBox .card-view .info-text {
+    -fx-font-size: 12px; /* Taille de police plus petite pour le texte */
+    -fx-text-fill: #34495e; /* Couleur du texte */
+    -fx-padding: 2px 0; /* Espacement vertical entre les lignes */
+}
+
+/* Style pour l'image dans les cartes de camion */
+#reservationVBox .card-view ImageView {
+    -fx-fit-width: 100px; /* Taille de l'image */
+    -fx-fit-height: 100px;
+    -fx-preserve-ratio: true;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 2, 2);
+    -fx-border-radius: 10px; /* Coins arrondis pour l'image */
+    -fx-border-color: #3498db; /* Bordure bleue */
+    -fx-border-width: 2px;
+}
+
+#reservationVBox .card-view ImageView:hover {
+    -fx-scale-x: 1.05; /* Légère augmentation de taille au survol */
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 4, 4);
+}
+
+/* Style pour le conteneur principal des cartes */
+#reservationVBox {
+    -fx-spacing: 15px; /* Espacement entre les cartes */
+    -fx-padding: 10px; /* Espacement interne */
+}
+
+/*fin test card view*/
+
+
+
+
+
+
+
 
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-background-color: transparent;
@@ -70,7 +201,8 @@
 
 .scroll-bar:vertical .thumb {
     -fx-background-color: #c1c1c1;
-    -fx-background-radius: 6;
+    -fx-background-radius: 4;
+    -fx-pref-width: 8px;
 }
 
 .scroll-bar:vertical .track {
@@ -81,10 +213,11 @@
     -fx-background-color: linear-gradient(to bottom, -fx-secondary, #2980b9);
     -fx-text-fill: white;
     -fx-background-radius: 6;
-    -fx-padding: 10 20;
+    -fx-padding: 8 16;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 2, 2);
     -fx-transition: all 0.2s ease;
+    -fx-font-size: 13px;
 }
 
 .button:hover {
@@ -114,7 +247,7 @@
     -fx-border-color: -fx-secondary;
     -fx-border-width: 2;
     -fx-border-radius: 8;
-    -fx-padding: 25;
+    -fx-padding: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 2, 2);
 }
 
@@ -131,7 +264,7 @@
     -fx-background-color: -fx-light;
     -fx-border-color: #d1d5db;
     -fx-border-radius: 5;
-    -fx-padding: 8 12;
+    -fx-padding: 6 10;
     -fx-transition: all 0.3s ease;
 }
 
@@ -164,7 +297,7 @@ ImageView:hover {
 
 @keyframes pulse {
     0% { -fx-scale-x: 1; -fx-scale-y: 1; }
-    50% { -fx-scale-x: 1.05; -fx-scale-y: 1.05; }
+    50% { -fx-scale-x: 1.03; -fx-scale-y: 1.03; } /* Réduit de 1.05 */
     100% { -fx-scale-x: 1; -fx-scale-y: 1; }
 }
 
@@ -191,11 +324,11 @@ ImageView:hover {
     -fx-background-color: #ffffff;
     -fx-border-color: #d1d5db;
     -fx-border-radius: 25;
-    -fx-padding: 10 15 10 40;
+    -fx-padding: 8 12 8 35;
     -fx-font-size: 14px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 12px center;
-    -fx-background-size: 20px;
+    -fx-background-size: 18px;
     -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.1), 8, 0, 0, 2);
     -fx-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -234,3 +367,255 @@ ImageView:hover {
     -fx-background-radius: 15;
     -fx-border-radius: 15;
 }
+
+
+
+
+
+/* Style pour le conteneur HBox */
+.button-container {
+    -fx-spacing: 12; /* Espacement entre les boutons */
+}
+
+/* Style pour le bouton exportButton */
+#exportButton {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: rgba(76, 175, 80, 0.3); /* Bordure verte discrète (30% d'opacité) */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 5px; /* Coins arrondis */
+    -fx-padding: 5px; /* Rembourrage interne */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+/* Style pour le bouton exportButton au survol */
+#exportButton:hover {
+    -fx-border-color: rgba(76, 175, 80, 0.6); /* Bordure plus visible au survol (60% d'opacité) */
+}
+
+/* Style pour le bouton importButton */
+#importButton {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: rgba(76, 175, 80, 0.3); /* Bordure verte discrète (30% d'opacité) */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 5px; /* Coins arrondis */
+    -fx-padding: 5px; /* Rembourrage interne */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+/* Style pour le bouton importButton au survol */
+#importButton:hover {
+    -fx-border-color: rgba(76, 175, 80, 0.6); /* Bordure plus visible au survol (60% d'opacité) */
+}
+
+/* Style pour les images dans les boutons */
+#exportButton .image-view,
+#importButton .image-view {
+    -fx-fit-width: 50; /* Largeur de l'image */
+    -fx-fit-height: 50; /* Hauteur de l'image */
+    -fx-preserve-ratio: true; /* Conserver le ratio de l'image */
+}
+
+
+
+/* Style pour le conteneur HBox (identique) */
+.button-container {
+    -fx-spacing: 20;
+}
+
+/* Style pour le bouton exportCamionButton */
+#exportCamionButton {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(76, 175, 80, 0.3);
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+
+/* Style au survol pour exportCamionButton */
+#exportCamionButton:hover {
+    -fx-border-color: rgba(76, 175, 80, 0.6);
+}
+
+/* Style pour le bouton importCamionButton */
+#importCamionButton {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(76, 175, 80, 0.3);
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+
+/* Style au survol pour importCamionButton */
+#importCamionButton:hover {
+    -fx-border-color: rgba(76, 175, 80, 0.6);
+}
+
+/* Style des images (identique) */
+#exportCamionButton .image-view,
+#importCamionButton .image-view {
+    -fx-fit-width: 50;
+    -fx-fit-height: 50;
+    -fx-preserve-ratio: true;
+}
+
+
+
+
+
+
+
+/* Style pour le bouton de rafraîchissement */
+#refreshButton {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: transparent; /* Pas de bordure */
+    -fx-padding: 5px; /* Rembourrage minimal */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+#refreshButton .image-view {
+    -fx-fit-width: 20px; /* Réduire la taille de l'image */
+    -fx-fit-height: 20px; /* Réduire la taille de l'image */
+    -fx-preserve-ratio: true; /* Conserver le ratio de l'image */
+}
+
+#refreshButton:hover {
+    -fx-opacity: 0.8; /* Légère transparence au survol */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 2, 2); /* Ombre légère */
+}
+
+
+
+
+/* Style pour le bouton de rafraîchissement de la zone de collecte */
+#refreshZoneButton {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: transparent; /* Pas de bordure */
+    -fx-padding: 5px; /* Espacement interne */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+#refreshZoneButton .image-view {
+    -fx-fit-width: 20px; /* Taille de l'image */
+    -fx-fit-height: 20px; /* Taille de l'image */
+    -fx-preserve-ratio: true; /* Conserver le ratio de l'image */
+    -fx-background-color: transparent; /* Fond transparent pour l'image */
+}
+
+#refreshZoneButton:hover {
+    -fx-opacity: 0.8; /* Légère transparence au survol */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 2, 2); /* Ombre légère */
+}
+
+/* Style pour le bouton de rafraîchissement du camion */
+#refreshCamionButton {
+    -fx-background-color: transparent; /* Fond transparent */
+    -fx-border-color: transparent; /* Pas de bordure */
+    -fx-padding: 5px; /* Espacement interne */
+    -fx-cursor: hand; /* Curseur en forme de main */
+}
+
+#refreshCamionButton .image-view {
+    -fx-fit-width: 20px; /* Taille de l'image */
+    -fx-fit-height: 20px; /* Taille de l'image */
+    -fx-preserve-ratio: true; /* Conserver le ratio de l'image */
+    -fx-background-color: transparent; /* Fond transparent pour l'image */
+}
+
+#refreshCamionButton:hover {
+    -fx-opacity: 0.8; /* Légère transparence au survol */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 2, 2); /* Ombre légère */
+}
+
+
+
+.main-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Couleur foncée */
+    -fx-padding: 0 0 10px 0; /* Espace en dessous */
+}
+
+.info-box {
+    -fx-padding: 10px;
+    -fx-background-color: #f9f9f9; /* Fond légèrement gris */
+    -fx-border-color: #ddd; /* Bordure légère */
+    -fx-border-radius: 5px;
+}
+
+.info-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e; /* Couleur foncée */
+}
+
+.info-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #666; /* Couleur grise */
+    -fx-padding: 1px 0;
+}
+
+
+
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+    -fx-padding: 10px 0 5px 0;
+}
+
+.card-text {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7f8c8d;
+    -fx-padding: 1px 0;
+}
+
+
+
+
+/* Style de base pour l'ImageView du code QR */
+#qrCodeLogo {
+    -fx-border-color: #4CAF50; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Épaisseur de la bordure */
+    -fx-border-radius: 10px; /* Coins arrondis */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); /* Ombre */
+    -fx-padding: 10px; /* Espacement intérieur */
+    -fx-fit-width: 80px; /* Réduit */
+    -fx-fit-height: 80px; /* Réduit */
+}
+
+/* Effet de survol pour l'ImageView */
+#qrCodeLogo:hover {
+    -fx-scale-x: 1.05; /* Agrandissement léger */
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0); /* Ombre plus prononcée */
+}
+
+/* Animation pour un effet subtil */
+@keyframes pulse {
+    0% { -fx-scale-x: 1; -fx-scale-y: 1; }
+    50% { -fx-scale-x: 1.02; -fx-scale-y: 1.02; }
+    100% { -fx-scale-x: 1; -fx-scale-y: 1; }
+}
+
+#qrCodeLogo {
+    -fx-animation: pulse 2s infinite; /* Animation de pulsation */
+}
+

@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         ServiceCamion sp = new ServiceCamion();
-        sp.add(new Camion("aspirateurX", "En Panne", 1400, 2));
+        sp.add(new Camion("aspirateurX", "En Panne", 1400));
 
         System.out.println("Liste des camions :");
         System.out.println(sp.getAll());

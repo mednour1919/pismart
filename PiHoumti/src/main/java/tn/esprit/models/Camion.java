@@ -3,29 +3,28 @@ package tn.esprit.models;
 public class Camion {
     private int id;
     private int capacity;
-    private Integer id_zone;
+    private String nom;  // Modification : id_zone devient zone de type String
     private String type;
     private String statut;
     private byte[] image;
 
-
     public Camion() {
     }
 
-    public Camion(String type, String statut, int capacity, Integer id_zone, byte[] image) {
+    public Camion(String type, String statut, int capacity, String nom, byte[] image) {
         this.type = type;
         this.statut = statut;
         this.capacity = capacity;
-        this.id_zone = id_zone;
+        this.nom = nom;  // zone est bien de type String
         this.image = image;
     }
 
-    public Camion(String type, String statut, int capacity, Integer id_zone) {
-        this(type, statut, capacity, id_zone, null);
+    public Camion(String type, String statut, int capacity, String nom) {
+        this(type, statut, capacity, nom, null);  // Appel du constructeur principal
     }
 
     public Camion(String type, String statut, int capacity) {
-        this(type, statut, capacity, null, null);
+        this(type, statut, capacity, null, null);  // zone est null par défaut
     }
 
     // Getters & Setters
@@ -37,12 +36,12 @@ public class Camion {
         this.id = id;
     }
 
-    public Integer getId_zone() {
-        return id_zone;
+    public String getNom() {  // Modification du getter
+        return nom;
     }
 
-    public void setId_zone(Integer id_zone) {
-        this.id_zone = id_zone;
+    public void setNom(String nom) {
+        this.nom = nom;  // Accepte une String
     }
 
     public int getCapacity() {
@@ -82,10 +81,34 @@ public class Camion {
         return "Camion{" +
                 "id=" + id +
                 ", capacity=" + capacity +
-                ", id_zone=" + id_zone +
+                ", zone='" + nom + '\'' +  // Changement de id_zone à zone
                 ", type='" + type + '\'' +
                 ", statut='" + statut + '\'' +
                 ", image=" + (image != null ? "[Image disponible]" : "[Aucune image]") +
                 '}';
+    }
+
+    // Méthode pour l'exportation
+    public String[] toStringForExport() {
+        return new String[]{
+                String.valueOf(id),
+                type,
+                statut,
+                String.valueOf(capacity),
+                nom != null ? nom : "N/A",  // Zone (nom) peut être null
+                image != null ? "Image disponible" : "Aucune image"
+        };
+    }
+
+    // Méthode pour l'importation
+    public static Camion fromStringArray(String[] data) {
+        Camion camion = new Camion();
+        camion.setId(Integer.parseInt(data[0]));
+        camion.setType(data[1]);
+        camion.setStatut(data[2]);
+        camion.setCapacity(Integer.parseInt(data[3]));
+        camion.setNom(data[4].equals("N/A") ? null : data[4]);  // Gestion de la zone (nom)
+        // L'image n'est pas gérée ici car elle nécessite un traitement spécial
+        return camion;
     }
 }

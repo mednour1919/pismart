@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="698.0" prefWidth="1003.0" stylesheets="@../Cssfile/Main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ClientView">
+
+    <VBox prefHeight="729.0" prefWidth="1041.0" styleClass="main-container" AnchorPane.bottomAnchor="-31.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="0">
+
+        <!-- Header -->
+        <HBox prefHeight="100.0" prefWidth="1041.0" spacing="20" styleClass="header-box">
+            <!-- Logo -->
+            <ImageView fitHeight="80.0" fitWidth="120.0" preserveRatio="true">
+                <image>
+                    <Image url="@houm4 - Copie.png" />
+                </image>
+            </ImageView>
+
+            <!-- Titre et sous-titre -->
+            <VBox alignment="CENTER_LEFT" spacing="5">
+                <Label styleClass="header-title" text="Houmti" />
+                <Label style="-fx-text-fill: white;" styleClass="header-subtitle" text="Gestion Intelligente des Déchets Urbains" />
+            </VBox>
+
+            <!-- Code QR -->
+            <ImageView fx:id="qrCodeLogo" fitHeight="80" fitWidth="80" preserveRatio="true" HBox.hgrow="NEVER">
+                <!-- L'image du QR code sera chargée dynamiquement dans le contrôleur -->
+            </ImageView>
+        </HBox>
+
+        <!-- Contenu principal avec les onglets -->
+        <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
+
+            <!-- Onglet Zone Collecte -->
+            <Tab closable="false" text="Zone Collecte">
+                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+                    <HBox prefHeight="554.0" prefWidth="126.0" spacing="20" styleClass="content-box">
+                        <!-- Conteneur des cartes de zone de collecte -->
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="554.0" prefWidth="400.0" styleClass="card-scroll">
+                            <VBox fx:id="stationVBox" styleClass="card-container" />
+                        </ScrollPane>
+
+                        <!-- Formulaire de gestion des zones de collecte -->
+                        <VBox spacing="15" styleClass="form-container">
+                            <!-- Titre et bouton de rafraîchissement -->
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label styleClass="section-title" text="Vers une Gestion Durable des Déchets" />
+                            </HBox>
+
+                                      <TextField fx:id="searchZoneField" prefHeight="31.0" prefWidth="174.0" promptText="Rechercher une zone..." styleClass="search-field" />
+
+                            <HBox alignment="CENTER" />
+
+                            <VBox prefHeight="102.0" prefWidth="434.0" spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="À Propos de l'Application" />
+                                <Label styleClass="info-text" text="• Gestion optimisée des zones de collecte" />
+                                <Label styleClass="info-text" text="• Suivi en temps réel des horaires (Tzmps)" />
+                                <Label styleClass="info-text" text="• Analyse des populations desservies" />
+                            </VBox>
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Objectifs Clés" />
+                                <Label styleClass="info-text" text="• Améliorer l'efficacité des collectes" />
+                                <Label styleClass="info-text" text="• Réduire les déchets non collectés" />
+                                <Label styleClass="info-text" text="• Faciliter la communication avec les responsables" />
+                            </VBox>
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Fonctionnalités Principales" />
+                                <Label styleClass="info-text" text="• Planification des horaires de collecte" />
+                                <Label styleClass="info-text" text="• Suivi des zones actives/inactives" />
+                            </VBox>
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Contact et Support" />
+                                <Label styleClass="info-text" text="• Email : support@gestiondechets.com" />
+                                <Label styleClass="info-text" text="• Téléphone : +33 1 23 45 67 89" />
+                                <Label styleClass="info-text" text="• Heures d'ouverture : 09h00 - 18h00" />
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                </ScrollPane>
+            </Tab>
+
+            <!-- Onglet Camion -->
+            <Tab closable="false" text="Camion">
+                <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="scroll-pane">
+                    <HBox spacing="20" styleClass="content-box">
+                        <!-- Conteneur des cartes de camion -->
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="702.0" prefWidth="400.0" styleClass="card-scroll">
+                            <VBox fx:id="reservationVBox" styleClass="card-container">
+                                <!-- Exemple de carte de camion -->
+                                <HBox alignment="CENTER_LEFT" spacing="15" styleClass="card-view">
+                                    <!-- Image du camion -->
+                                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                                        <image>
+                                            <Image url="@5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+                                        </image>
+                                    </ImageView>
+                                    <!-- Texte à côté de l'image -->
+                                    <VBox spacing="8" styleClass="text-container">
+                                        <Label styleClass="info-title" text="Type de camion" />
+                                        <Label styleClass="info-text" text="Capacité: 500 kg" />
+                                        <Label styleClass="info-text" text="Statut: Actif" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </ScrollPane>
+
+                        <!-- Formulaire de gestion des camions -->
+                        <VBox prefHeight="702.0" prefWidth="473.0" spacing="15" styleClass="form-container">
+                            <!-- Titre et bouton de rafraîchissement -->
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label styleClass="section-title" text="Gestion Camions" />
+                                <ImageView fitHeight="52.0" fitWidth="98.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@5452467_automobile_garbage_recycling_transportation_trash_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </HBox>
+
+                            <TextField fx:id="searchCamionField" promptText="Rechercher un camion..." styleClass="search-field" />
+
+                            <HBox alignment="CENTER" />
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Gestion des Camions" />
+                                <Label styleClass="info-text" text="• Suivi en temps réel des camions en service et en panne." />
+                                <Label styleClass="info-text" text="• Optimisation des itinéraires pour une collecte efficace." />
+                                <Label styleClass="info-text" text="• Affectation des camions aux zones de collecte selon les besoins." />
+                            </VBox>
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Amélioration du Service" />
+                                <Label styleClass="info-text" text="• Réduction des délais d'intervention en cas de panne." />
+                                <Label styleClass="info-text" text="• Meilleure répartition des ressources pour minimiser les coûts." />
+                                <Label styleClass="info-text" text="• Augmentation de la capacité de collecte avec une gestion optimisée." />
+                            </VBox>
+
+                            <VBox spacing="5" styleClass="info-box">
+                                <Label styleClass="info-title" text="Innovation et Technologie" />
+                                <Label styleClass="info-text" text="• Intégration d'un système de localisation GPS pour chaque camion." />
+                                <Label styleClass="info-text" text="• Interface intuitive pour suivre et gérer les opérations." />
+                                <Label styleClass="info-text" text="• Analyse des performances pour une amélioration continue." />
+                            </VBox>
+                        </VBox>
+                    </HBox>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </VBox>
+</AnchorPane>
