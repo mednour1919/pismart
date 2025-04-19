@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signalement index{% endblock %}
+
+{% block body %}
+<style>
+    /* Style général de la page */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Style du tableau */
+    .table {
+        width: 100%;
+        margin-bottom: 30px;
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table thead tr {
+        background-color: #3498db;
+        color: white;
+        text-align: left;
+    }
+
+    .table th,
+    .table td {
+        padding: 15px;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #dddddd;
+        transition: all 0.2s ease;
+    }
+
+    .table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .table tbody tr:last-of-type {
+        border-bottom: 2px solid #3498db;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e3f2fd;
+        transform: scale(1.01);
+    }
+
+    /* Style des boutons */
+    .btn {
+        display: inline-block;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        margin-right: 5px;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+        border: 1px solid #17a2b8;
+    }
+
+    .btn-info:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+        border: 1px solid #ffc107;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour le message "Aucun signalement trouvé" */
+    .table tbody tr td[colspan="7"] {
+        text-align: center;
+        padding: 20px;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Style des liens */
+    a {
+        color: #007bff;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Style du bouton Create new */
+    .create-new {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .create-new:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style des images */
+    .table img {
+        max-width: 100px;
+        border-radius: 4px;
+        transition: transform 0.3s;
+    }
+
+    .table img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Style pour le texte "Aucune image" */
+    .no-image {
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .table {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+</style>
+
+    <h1>Signalement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_signalement</th>
+                <th>Type_signalement</th>
+                <th>Description</th>
+                <th>Date_signalement</th>
+                <th>Image</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for signalement in signalements %}
+            <tr>
+                <td>{{ signalement.idSignalement }}</td>
+                <td>{{ signalement.typeSignalement }}</td>
+                <td>{{ signalement.description }}</td>
+                <td>{{ signalement.dateSignalement ? signalement.dateSignalement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    {% if signalement.image %}
+                        <img src="{{ path('signalement_image', {id: signalement.idSignalement}) }}" alt="Image">
+                    {% else %}
+                        <span class="no-image">Aucune image</span>
+                    {% endif %}
+                </td>
+                <td>{{ signalement.statut }}</td>
+                <td>
+                    <a href="{{ path('app_signalement_show', {'id_signalement': signalement.idSignalement}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('app_signalement_edit', {'id_signalement': signalement.idSignalement}) }}" class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun signalement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_signalement_new') }}" class="create-new">Create new</a>
+{% endblock %}

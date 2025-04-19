@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Station{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h2 class="mb-0">Créer une nouvelle station</h2>
+            </div>
+            <div class="card-body">
+                {{ include('station/_form.html.twig', {
+                    'button_label': 'Enregistrer',
+                    'button_class': 'btn btn-success'
+                }) }}
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('app_station_index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer le formulaire
+        const form = document.querySelector('form');
+        
+        // Ajouter un événement pour valider avant la soumission
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            const nomStation = document.querySelector('input[name="station[nomStation]"]');
+            const capacite = document.querySelector('input[name="station[capacite]"]');
+            const zone = document.querySelector('input[name="station[zone]"]');
+            
+            // Validation du nom de la station (non vide et au moins 3 caractères)
+            if (!nomStation.value || nomStation.value.length < 3) {
+                showError(nomStation, 'Le nom de la station doit contenir au moins 3 caractères');
+                isValid = false;
+            } else {
+                clearError(nomStation);
+            }
+            
+            // Validation de la capacité (nombre positif)
+            if (!capacite.value || isNaN(capacite.value) || parseInt(capacite.value) <= 0) {
+                showError(capacite, 'La capacité doit être un nombre positif');
+                isValid = false;
+            } else {
+                clearError(capacite);
+            }
+            
+            // Validation de la zone (non vide)
+            if (!zone.value) {
+                showError(zone, 'La zone est requise');
+                isValid = false;
+            } else {
+                clearError(zone);
+            }
+            
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+        
+        // Fonction pour afficher un message d'erreur
+        function showError(input, message) {
+            // Supprimer d'abord tout message d'erreur existant
+            clearError(input);
+            
+            // Créer et ajouter le message d'erreur
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback d-block';
+            errorDiv.innerText = message;
+            input.classList.add('is-invalid');
+            input.parentNode.appendChild(errorDiv);
+        }
+        
+        // Fonction pour effacer un message d'erreur
+        function clearError(input) {
+            input.classList.remove('is-invalid');
+            const errorDiv = input.parentNode.querySelector('.invalid-feedback');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+    });
+</script>
+{% endblock %}

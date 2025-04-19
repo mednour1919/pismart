@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Contribution{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Créer une nouvelle contribution</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        
+        <div class="mb-3">
+            {{ form_label(form.projet) }}
+            {{ form_widget(form.projet) }}
+            {{ form_errors(form.projet) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type) }}
+            {{ form_errors(form.type) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.message) }}
+            {{ form_widget(form.message) }}
+            {{ form_errors(form.message) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.date_creation) }}  <!-- Utilisation de date_creation ici -->
+            {{ form_widget(form.date_creation) }}  <!-- Utilisation de date_creation ici -->
+            {{ form_errors(form.date_creation) }}  <!-- Utilisation de date_creation ici -->
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.statut) }}
+            {{ form_widget(form.statut) }}
+            {{ form_errors(form.statut) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('app_contribution_index') }}" class="btn btn-secondary">Retour à la liste</a>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

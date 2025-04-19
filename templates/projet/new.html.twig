@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Projet{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Créer un nouveau projet</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="card shadow">
+            <div class="card-body">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.nom) }}
+                            {{ form_widget(form.nom) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.nom) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.statut) }}
+                            {{ form_widget(form.statut) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.statut) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.budget) }}
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                {{ form_widget(form.budget) }}
+                            </div>
+                            <div class="text-danger">
+                                {{ form_errors(form.budget) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.depense) }}
+                            <div class="input-group">
+                                <span class="input-group-text">€</span>
+                                {{ form_widget(form.depense) }}
+                            </div>
+                            <div class="text-danger">
+                                {{ form_errors(form.depense) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.dateDebut) }}
+                            {{ form_widget(form.dateDebut) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.dateDebut) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.dateFin) }}
+                            {{ form_widget(form.dateFin) }}
+                            <div class="text-danger">
+                                {{ form_errors(form.dateFin) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.fournisseur) }}
+                    {{ form_widget(form.fournisseur) }}
+                    <div class="text-danger">
+                        {{ form_errors(form.fournisseur) }}
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('app_projet_index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour à la liste
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Enregistrer
+                    </button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

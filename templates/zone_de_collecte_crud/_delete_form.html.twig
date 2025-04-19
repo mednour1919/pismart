@@ -1,0 +1,25 @@
+{# Assurez-vous d'étendre votre template de base #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Supprimer la zone de collecte</h1>
+        
+        <div class="alert alert-warning">
+            Êtes-vous sûr de vouloir supprimer la zone "{{ zone_de_collecte.nom }}" ?
+        </div>
+
+        <form method="post" action="{{ path('app_zone_de_collecte_crud_delete', {'id': zone_de_collecte.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ zone_de_collecte.id) }}">
+            
+            <div class="form-actions">
+                <button class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Confirmer la suppression
+                </button>
+                <a href="{{ path('app_zone_de_collecte_crud_index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Annuler
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
