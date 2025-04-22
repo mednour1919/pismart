@@ -1,0 +1,15 @@
+#[Route('/{id_signalement}', name: 'app_signalement_show', methods: ['GET'])]
+public function show(Signalement $signalement): Response
+{
+    $image = null;
+    if ($signalement->getImage()) {
+        $imageContent = stream_get_contents($signalement->getImage());
+        rewind($signalement->getImage());
+        $image = base64_encode($imageContent);
+    }
+
+    return $this->render('signalement/show.html.twig', [
+        'signalement' => $signalement,
+        'image' => $image,
+    ]);
+}

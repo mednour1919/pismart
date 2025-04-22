@@ -1,0 +1,23 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Nouvelle Zone de Collecte{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="h3 mb-0">Créer une nouvelle Zone de Collecte</h1>
+            </div>
+            
+            <div class="card-body">
+                {{ include('zone_de_collecte_crud/_form.html.twig') }}
+            </div>
+            
+            <div class="card-footer text-end">
+                <a href="{{ path('app_zone_de_collecte_crud_index') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Station list {% endblock %}
+
+{% block body %}
+    <h1>Station Houmti</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>NomStation</th>
+                <th>Capacite</th>
+                <th>Zone</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for station in stations %}
+            <tr>
+                <td>{{ station.nomStation }}</td>
+                <td>{{ station.capacite }}</td>
+                <td>{{ station.zone }}</td>
+                <td>{{ station.status }}</td>
+                <td>
+                    <a href="{{ path('app_station_show', {'id_station': station.id_station}) }}" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i> Voir
+                    </a>
+                    <a href="{{ path('app_station_edit', {'id_station': station.id_station}) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_station_new') }}" class="btn btn-success">
+        <i class="fas fa-plus"></i> Créer une nouvelle station
+    </a>
+{% endblock %}

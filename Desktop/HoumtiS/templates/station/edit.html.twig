@@ -1,0 +1,88 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    
+    // Empêcher la saisie de caractères non autorisés directement pendant la frappe
+    const nomStation = document.querySelector('input[name="station[nomStation]"]');
+    if (nomStation) {
+        nomStation.addEventListener('input', function(e) {
+            // Regex pour n'autoriser que les lettres (y compris accents), espaces et tirets
+            const regex = /^[a-zA-ZÀ-ÿ\s\-]+$/;
+            
+            // Si le caractère saisi n'est pas autorisé, on l'enlève
+            if (!regex.test(this.value)) {
+                // Conserver uniquement les caractères autorisés
+                this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s\-]/g, '');
+                
+                // Feedback visuel temporaire
+                this.classList.add('border-danger');
+                setTimeout(() => {
+                    this.classList.remove('border-danger');
+                }, 500);
+            }
+        });
+    }
+    
+    // Validation à la soumission du formulaire
+    form.addEventListener('submit', function (event) {
+        let isValid = true;
+        
+        // Validation du nom de la station
+        if (nomStation) {
+            // Vérifier que le nom ne contient que des lettres, espaces et tirets
+            const regex = /^[a-zA-ZÀ-ÿ\s\-]+$/;
+            
+            if (!nomStation.value || nomStation.value.trim().length < 3) {
+                showError(nomStation, '🚫 Le nom de la station doit contenir au moins 3 caractères');
+                isValid = false;
+            } else if (!regex.test(nomStation.value)) {
+                showError(nomStation, '🚫 Le nom de la station ne doit contenir que des lettres, espaces et tirets');
+                isValid = false;
+            } else {
+                clearError(nomStation);
+            }
+        }
+        
+        // Validation de la capacité
+        const capacite = document.querySelector('input[name="station[capacite]"]');
+        if (capacite) {
+            if (!capacite.value || isNaN(capacite.value) || parseInt(capacite.value) <= 0) {
+                showError(capacite, '🚫 La capacité doit être un nombre positif');
+                isValid = false;
+            } else {
+                clearError(capacite);
+            }
+        }
+        
+        // Validation de la zone
+        const zone = document.querySelector('input[name="station[zone]"]');
+        if (zone) {
+            if (!zone.value) {
+                showError(zone, '🚫 La zone est requise');
+                isValid = false;
+            } else {
+                clearError(zone);
+            }
+        }
+        
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+    
+    function showError(input, message) {
+        clearError(input);
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback d-block mt-1';
+        errorDiv.innerText = message;
+        input.classList.add('is-invalid');
+        input.parentNode.appendChild(errorDiv);
+    }
+    
+    function clearError(input) {
+        input.classList.remove('is-invalid');
+        const errorDiv = input.parentNode.querySelector('.invalid-feedback');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+});

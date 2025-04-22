@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet index{% endblock %}
+
+{% block body %}
+<style>
+    /* Style général de la page */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Style du tableau */
+    .table {
+        width: 100%;
+        margin-bottom: 30px;
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table thead tr {
+        background-color: #3498db;
+        color: white;
+        text-align: left;
+    }
+
+    .table th,
+    .table td {
+        padding: 15px;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #dddddd;
+        transition: all 0.2s ease;
+    }
+
+    .table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    .table tbody tr:last-of-type {
+        border-bottom: 2px solid #3498db;
+    }
+
+    .table tbody tr:hover {
+        background-color: #e3f2fd;
+        transform: scale(1.01);
+    }
+
+    /* Style des liens d'action */
+    .action-links {
+        display: flex;
+        gap: 10px;
+    }
+
+    .action-links a {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .show-link {
+        background-color: #17a2b8;
+        color: white;
+        border: 1px solid #17a2b8;
+    }
+
+    .show-link:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-link {
+        background-color: #ffc107;
+        color: #212529;
+        border: 1px solid #ffc107;
+    }
+
+    .edit-link:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style du bouton Create new */
+    .create-new {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .create-new:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour le message "no records found" */
+    .table tbody tr td[colspan="9"] {
+        text-align: center;
+        padding: 20px;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Formatage des données */
+    .currency {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+    }
+
+    .status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .table {
+            display: block;
+            overflow-x: auto;
+        }
+        
+        .action-links {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Liste des Projets</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Statut</th>
+                <th>Budget</th>
+                <th>Dépense</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>{{ projet.id }}</td>
+                <td>{{ projet.nom }}</td>
+                <td>
+                    <span class="status" style="background-color: 
+                    {% if projet.statut == 'terminé' %}#28a745
+                    {% elseif projet.statut == 'en cours' %}#17a2b8
+                    {% elseif projet.statut == 'suspendu' %}#6c757d
+                    {% elseif projet.statut == 'planifié' %}#ffc107
+                    {% else %}#007bff{% endif %};
+                    color: white;">
+                        {{ projet.statut }}
+                    </span>
+                </td>
+                <td class="currency">{{ projet.budget|number_format(2, ',', ' ') }} €</td>
+                <td class="currency">{{ projet.depense|number_format(2, ',', ' ') }} €</td>
+                <td>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '' }}</td>
+                <td>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '' }}</td>
+                <td>{{ projet.description|slice(0, 50) }}{% if projet.description|length > 50 %}...{% endif %}</td>
+                <td>
+                    <div class="action-links">
+                        <a href="{{ path('app_projet_show', {'id': projet.id}) }}" class="show-link">Voir</a>
+                        <a href="{{ path('app_projet_edit', {'id': projet.id}) }}" class="edit-link">Modifier</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucun projet trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_projet_new') }}" class="create-new">Créer un nouveau projet</a>
+</div>
+{% endblock %}

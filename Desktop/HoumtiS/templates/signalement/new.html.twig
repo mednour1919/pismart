@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Signalement{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="h3 mb-0">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Nouveau Signalement
+                            </h1>
+                            <a href="{{ path('app_signalement_index') }}" class="btn btn-sm btn-light">
+                                <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        {{ include('signalement/_form.html.twig') }}
+                    </div>
+
+                    <div class="card-footer bg-light">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ path('app_signalement_index') }}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-list me-1"></i> Voir tous les signalements
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .card {
+            border-radius: 0.5rem;
+            border: none;
+        }
+        .card-header {
+            border-radius: 0.5rem 0.5rem 0 0 !important;
+        }
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Camion{% endblock %}
+
+{% block body %}
+    <h1>Détails du Camion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ camion.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ camion.type }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ camion.statut }}</td>
+            </tr>
+            <tr>
+                <th>Capacité</th>
+                <td>{{ camion.capacity }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ camion.nom }}</td>
+            </tr>
+            <tr>
+    <th>Image</th>
+    <td>
+        {% if camion.image %}
+           <img src="/uploads/{{ camion.image }}" width="200">
+        {% else %}
+            Pas d'image
+        {% endif %}
+    </td>
+</tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_camion_c_r_u_d_index') }}" class="btn btn-secondary">Retour à la liste</a>
+    <a href="{{ path('app_camion_c_r_u_d_edit', {'id': camion.id}) }}" class="btn btn-primary"> Modifier</a>
+
+    {{ include('camion_crud/_delete_form.html.twig') }}
+{% endblock %}

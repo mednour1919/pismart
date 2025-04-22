@@ -1,0 +1,28 @@
+{{ form_start(form, {'attr': {'id': 'camion-form'}}) }}
+    <div class="row g-3">
+        {% for field in form %}
+            {% if field.vars.name != '_token' and field.vars.name != 'submit' %}
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form_widget(field, {
+                            'attr': {
+                                'class': 'form-control shadow-sm rounded-3',
+                                'placeholder': field.vars.label
+                            }
+                        }) }}
+                        {{ form_label(field, null, {
+                            'label_attr': {'class': 'form-label'}
+                        }) }}
+                        {{ form_errors(field) }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="mt-4 text-end">
+        <button class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="fas fa-save me-2"></i>{{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}

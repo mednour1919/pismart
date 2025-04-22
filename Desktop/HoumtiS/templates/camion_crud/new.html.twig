@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Camion{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-md-10 mx-auto mt-4">
+            <!-- En-tête de page -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-truck fa-2x text-primary me-3"></i>
+                    <div>
+                        <h1 class="h3 fw-bold mb-0">Nouveau camion</h1>
+                        <small class="text-muted">Ajouter un nouveau véhicule à la flotte</small>
+                    </div>
+                </div>
+                <a href="{{ path('app_camion_c_r_u_d_index') }}" class="btn btn-outline-primary rounded-pill shadow-sm">
+                    <i class="fas fa-arrow-left me-2"></i> Retour à la liste
+                </a>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card shadow rounded-4 border-0 mb-4">
+                <div class="card-header bg-transparent border-bottom-0 py-4">
+                    <h5 class="mb-0 text-primary">
+                        <i class="fas fa-file-alt me-2"></i>Formulaire de création
+                    </h5>
+                </div>
+                <div class="card-body pt-0">
+                    {{ include('camion_crud/_form.html.twig') }}
+                </div>
+                <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center py-3">
+                    <a href="{{ path('app_camion_c_r_u_d_index') }}" class="btn btn-link text-muted">
+                        <i class="fas fa-arrow-left me-1"></i> Annuler
+                    </a>
+                    <button type="submit" form="camion-form" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="fas fa-save me-2"></i>Enregistrer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section d'aide -->
+            <div class="alert alert-info d-flex align-items-start gap-3 shadow-sm rounded-4 mt-4 p-4">
+                <i class="fas fa-info-circle fa-2x text-info mt-1"></i>
+                <div>
+                    <h5 class="mb-1 fw-semibold">Conseils</h5>
+                    <p class="mb-0">Remplissez tous les champs obligatoires marqués d'un astérisque (*). Vérifiez bien les informations avant de soumettre.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
